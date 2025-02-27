@@ -1,0 +1,28 @@
+{
+  "name": "sbc_tech_exam",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "next": "13.5.8",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.45.0",
+    "react-redux": "^8.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}
