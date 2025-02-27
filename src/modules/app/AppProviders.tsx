@@ -1,4 +1,5 @@
 import React from 'react';
+import AppThemeProvider from './AppThemeProvider';
 
 interface Props {
 	children: React.ReactNode;
@@ -7,7 +8,7 @@ interface Props {
 function AppProviders(props: Props) {
 	const {children} = props;
 	// add mui provider and notistack for notification system
-	return <div>{children}</div>;
+	return <AppThemeProvider>{children}</AppThemeProvider>;
 }
 
 export default AppProviders;
