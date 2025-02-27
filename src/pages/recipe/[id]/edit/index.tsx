@@ -1,8 +1,8 @@
 import React from 'react';
-import {useParams} from 'next/navigation';
+import Edit from '@/modules/recipe/view/edit/Edit';
 
 function Index() {
-	return <div>Recipe Edit</div>;
+	return <Edit />;
 }
 
 export default Index;

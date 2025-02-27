@@ -3,7 +3,7 @@ import '@/styles/globals.css';
 import Head from 'next/head';
 import type {AppProps} from 'next/app';
 
-import {Page} from '@/components/page';
+import {Layout} from '@/components/layout';
 import AppProviders from '@/modules/app/AppProviders';
 
 export default function App({Component, pageProps}: AppProps) {
@@ -17,9 +17,9 @@ export default function App({Component, pageProps}: AppProps) {
 			</Head>
 
 			<AppProviders>
-				<Page>
+				<Layout>
 					<Component {...pageProps} />
-				</Page>
+				</Layout>
 			</AppProviders>
 		</>
 	);

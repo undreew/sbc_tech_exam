@@ -5,9 +5,9 @@ interface Props {
 	children: React.ReactNode;
 }
 
-function DashboardContainer(props: Props) {
+function PageContainer(props: Props) {
 	const {children} = props;
 	return <Box sx={{my: 5}}>{children}</Box>;
 }
 
-export default DashboardContainer;
+export default PageContainer;

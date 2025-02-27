@@ -1,14 +1,14 @@
 import React from 'react';
 import {AppBar, Container, Toolbar} from '@mui/material';
 
-function PageHeader() {
+function LayoutHeader() {
 	return (
 		<AppBar position='fixed' elevation={0}>
-			<Container maxWidth='xl'>
-				<Toolbar>SBC</Toolbar>
+			<Container maxWidth='lg'>
+				<Toolbar />
 			</Container>
 		</AppBar>
 	);
 }
 
-export default PageHeader;
+export default LayoutHeader;

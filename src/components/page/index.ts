@@ -1,2 +1,3 @@
-export {default as Page} from './Page.tsx';
-export {default as PageHeader} from './PageHeader.tsx';
+export {default as PageContent} from './PageContent.tsx';
+export {default as PageContainer} from './PageContainer.tsx';
+export {default as PageBreadcrumbs} from './PageBreadcrumbs.tsx';

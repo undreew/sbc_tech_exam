@@ -6,7 +6,7 @@ interface Props {
 	children: React.ReactNode | React.ReactNode[];
 }
 
-function DashboardContent(props: Props) {
+function PageContent(props: Props) {
 	const {children} = props;
 
 	const childrenArray = React.Children.toArray(children);
@@ -28,4 +28,4 @@ function DashboardContent(props: Props) {
 	);
 }
 
-export default DashboardContent;
+export default PageContent;
