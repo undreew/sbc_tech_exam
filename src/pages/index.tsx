@@ -1,23 +1,20 @@
-import styles from '@/styles/Home.module.css';
-
-import {useEffect} from 'react';
-import {Montserrat} from 'next/font/google';
-
 import Landing from '@/modules/landing/Landing';
-import {useAlert} from '@/modules/app/AlertProvider';
-
-const montserrat = Montserrat({subsets: ['latin']});
+import {Button} from '@mui/material';
 
 export default function Home() {
-	const {alertBySuccess} = useAlert();
-
-	useEffect(() => {
-		alertBySuccess('testing notif');
-	}, []);
-
 	return (
-		<main className={`${styles.main} ${montserrat.className}`}>
+		<main>
 			<Landing />
+
+			<Button color='error' variant='contained'>
+				Error
+			</Button>
+			<Button color='primary' variant='contained'>
+				Primary
+			</Button>
+			<Button color='warning' variant='contained'>
+				Warning
+			</Button>
 		</main>
 	);
 }
