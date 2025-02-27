@@ -1,11 +1,18 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+
+import LandingList from './LandingList';
+import LandingFilters from './LandingFilters';
+import {DashboardContainer, DashboardContent} from '@/components/dashboard';
 
 // create components for recipe listing and filters
 function Landing() {
 	return (
-		<div>
-			<h1>Recipe Filters & Listing</h1>
-		</div>
+		<DashboardContainer>
+			<DashboardContent>
+				<LandingFilters />
+				<LandingList />
+			</DashboardContent>
+		</DashboardContainer>
 	);
 }
 

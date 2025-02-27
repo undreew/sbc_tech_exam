@@ -14,11 +14,7 @@ function Layout(props: Props) {
 			<PageHeader />
 			<Toolbar />
 
-			<Container
-				component='main'
-				maxWidth={false}
-				sx={{p: 3, flexGrow: 1, maxWidth: '1680px'}}
-			>
+			<Container component='main' maxWidth='xl' sx={{p: 3, flexGrow: 1}}>
 				{children}
 			</Container>
 		</Box>

@@ -4,8 +4,8 @@ import {AppBar, Container, Toolbar} from '@mui/material';
 function PageHeader() {
 	return (
 		<AppBar position='fixed' elevation={0}>
-			<Container maxWidth={false}>
-				<Toolbar>PageHeader</Toolbar>
+			<Container maxWidth='xl'>
+				<Toolbar>SBC</Toolbar>
 			</Container>
 		</AppBar>
 	);
