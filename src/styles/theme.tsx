@@ -1,7 +1,7 @@
 import {createTheme} from '@mui/material';
-import {Montserrat} from 'next/font/google';
+import {Inter} from 'next/font/google';
 
-const montserrat = Montserrat({
+const inter = Inter({
 	weight: ['300', '400', '500', '700'],
 	subsets: ['latin'],
 	display: 'swap',
@@ -9,7 +9,7 @@ const montserrat = Montserrat({
 
 export const theme = createTheme({
 	typography: {
-		fontFamily: montserrat.style.fontFamily,
+		fontFamily: inter.style.fontFamily,
 	},
 
 	palette: {
