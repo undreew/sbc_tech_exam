@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // create components for recipe listing and filters
 function Landing() {
