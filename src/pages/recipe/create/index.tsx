@@ -1,7 +1,8 @@
 import React from 'react';
+import Create from '@/modules/recipe/create/Create';
 
 function Index() {
-	return <div>Recipe Create</div>;
+	return <Create />;
 }
 
 export default Index;
