@@ -1,9 +1,10 @@
 import React from 'react';
 import {Box, Button, FormLabel, Grid, TextField} from '@mui/material';
 
-import useCreate, {IFormFields} from '@/modules/recipe/create/useCreate';
+import {RecipeCreate} from '@/models/recipe';
+import useCreate from '@/modules/recipe/create/useCreate';
 
-function PageForm({onSubmit}: {onSubmit: (data: IFormFields) => void}) {
+function PageForm({onSubmit}: {onSubmit: (data: RecipeCreate) => void}) {
 	const {
 		register,
 		handleSubmit,
@@ -18,6 +19,7 @@ function PageForm({onSubmit}: {onSubmit: (data: IFormFields) => void}) {
 				</Grid>
 				<Grid item sm={6} md={8}>
 					<TextField
+						size='small'
 						label='Your Name'
 						type='text'
 						fullWidth
@@ -28,6 +30,7 @@ function PageForm({onSubmit}: {onSubmit: (data: IFormFields) => void}) {
 					/>
 
 					<TextField
+						size='small'
 						label='Email'
 						type='email'
 						fullWidth
@@ -38,6 +41,7 @@ function PageForm({onSubmit}: {onSubmit: (data: IFormFields) => void}) {
 					/>
 
 					<TextField
+						size='small'
 						label='Title'
 						type='text'
 						fullWidth
@@ -47,8 +51,8 @@ function PageForm({onSubmit}: {onSubmit: (data: IFormFields) => void}) {
 						helperText={errors.title?.message}
 					/>
 
-					<FormLabel id='description'></FormLabel>
 					<TextField
+						size='small'
 						id='description'
 						type='text'
 						margin='normal'
@@ -63,6 +67,7 @@ function PageForm({onSubmit}: {onSubmit: (data: IFormFields) => void}) {
 					/>
 
 					<TextField
+						size='small'
 						type='text'
 						margin='normal'
 						label='Ingredients'
@@ -76,6 +81,7 @@ function PageForm({onSubmit}: {onSubmit: (data: IFormFields) => void}) {
 					/>
 
 					<TextField
+						size='small'
 						type='text'
 						margin='normal'
 						label='Instructions'

@@ -1,10 +1,10 @@
 import React from 'react';
 
+import {RecipeCreate} from '@/models/recipe';
 import PageForm from '@/components/page/PageForm';
-import {IFormFields} from './useCreate';
 
 function CreateForm() {
-	function onSubmit(data: IFormFields) {}
+	function onSubmit(data: RecipeCreate) {}
 
 	return <PageForm onSubmit={onSubmit} />;
 }

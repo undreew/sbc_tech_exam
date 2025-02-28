@@ -1,17 +1,9 @@
 import {object, string} from 'yup';
 import {useForm} from 'react-hook-form';
 
-import {yupResolver} from '@hookform/resolvers/yup';
+import {RecipeCreate} from '@/models/recipe';
 import {FEEDBACK} from '@/constants/validation';
-
-export interface IFormFields {
-	your_name: string;
-	email: string;
-	title: string;
-	description: string;
-	ingredients: string;
-	instructions: string;
-}
+import {yupResolver} from '@hookform/resolvers/yup';
 
 function useCreate() {
 	const validationSchema = object({
@@ -27,7 +19,7 @@ function useCreate() {
 		instructions: string().required(FEEDBACK.REQUIRED),
 	});
 
-	return useForm<IFormFields>({
+	return useForm<RecipeCreate>({
 		resolver: yupResolver(validationSchema),
 	});
 }

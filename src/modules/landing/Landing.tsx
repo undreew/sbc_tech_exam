@@ -6,7 +6,8 @@ import LandingFilters from './LandingFilters';
 
 import {PageContainer, PageContent} from '@/components/page';
 
-// create components for recipe listing and filters
+import {mockData} from '@/constants/mockData';
+
 function Landing() {
 	return (
 		<PageContainer>
@@ -14,7 +15,7 @@ function Landing() {
 
 			<PageContent>
 				<LandingFilters />
-				<LandingList />
+				<LandingList data={mockData} />
 			</PageContent>
 		</PageContainer>
 	);
