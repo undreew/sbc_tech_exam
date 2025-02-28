@@ -7,6 +7,7 @@ import LandingFilters from './LandingFilters';
 import {PageContainer, PageContent} from '@/components/page';
 
 import {mockData} from '@/constants/mockData';
+import {Card, CardContent} from '@mui/material';
 
 function Landing() {
 	return (
@@ -15,7 +16,11 @@ function Landing() {
 
 			<PageContent>
 				<LandingFilters />
-				<LandingList data={mockData} />
+				<Card>
+					<CardContent>
+						<LandingList data={mockData} />
+					</CardContent>
+				</Card>
 			</PageContent>
 		</PageContainer>
 	);

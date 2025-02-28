@@ -28,10 +28,8 @@ function LandingFilters() {
 				<CardHeader title='Favorites' />
 				<CardContent>
 					<FormControl>
-						<FormControlLabel
-							control={<Checkbox defaultChecked />}
-							label='Label'
-						/>
+						<FormControlLabel control={<Checkbox />} label='Yes' />
+						<FormControlLabel control={<Checkbox />} label='No' />
 					</FormControl>
 				</CardContent>
 			</Card>
