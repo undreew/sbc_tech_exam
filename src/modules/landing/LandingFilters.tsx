@@ -1,6 +1,6 @@
 import React from 'react';
 import {useRouter} from 'next/router';
-import {Button, CardContent, Typography} from '@mui/material';
+import {Button, CardContent, Stack, Typography} from '@mui/material';
 
 import {FILTER_BY_FAVORITE, SORT_BY} from '@/constants/filter';
 
@@ -9,16 +9,27 @@ import {FormsField} from '@/components/forms';
 import {FilterCheckbox, FilterSelect} from '@/components/filters';
 
 import cleanDeep from 'clean-deep';
-import {merge, size} from 'lodash';
+import {assign, merge, omit, size} from 'lodash';
 
 function LandingFilters() {
 	const router = useRouter();
 
 	const {pathname, query} = router;
-	const {sort_by, filter_by_favorites} = query;
+	const {order, filter_by_favorites} = query;
 
 	function handleChange(option: string | null, key: string) {
-		router.push({pathname, query: cleanDeep(merge(query, {[key]: option}))});
+		let newQuery = assign({}, query);
+
+		if (option) {
+			newQuery = merge(newQuery, {
+				[key]: option,
+				...(key === 'order' && {order_by: 'title'}),
+			});
+		} else {
+			newQuery = omit(newQuery, ['order_by', key]);
+		}
+
+		router.push({pathname, query: cleanDeep(newQuery)});
 	}
 
 	function handleClear() {
@@ -40,15 +51,15 @@ function LandingFilters() {
 				)
 			}
 		>
-			<CardContent>
+			<CardContent component={Stack} gap={2}>
 				<FormsField
-					title='Sort By'
-					helperText='Sort by ascending or descending'
+					title='Sort By Title'
+					helperText='Sort title by ascending or descending'
 				>
 					<FilterSelect
 						options={SORT_BY}
-						defaultValue={sort_by}
-						onChange={(option) => handleChange(option, 'sort_by')}
+						defaultValue={order}
+						onChange={(option) => handleChange(option, 'order')}
 					/>
 				</FormsField>
 
