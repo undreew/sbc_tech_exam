@@ -16,6 +16,7 @@
     "@mui/material": "^5.15.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/lodash": "^4.17.15",
+    "clean-deep": "^3.4.0",
     "lodash": "^4.17.21",
     "next": "13.5.8",
     "notistack": "^3.0.2",

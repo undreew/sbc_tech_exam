@@ -7,7 +7,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 
 function useCreate() {
 	const validationSchema = object({
-		your_name: string().required(FEEDBACK.REQUIRED),
+		your_name: string().min(10).max(50).required(FEEDBACK.REQUIRED),
 		email: string()
 			.email(FEEDBACK.REQUIRED)
 			.required(FEEDBACK.EMAIL)

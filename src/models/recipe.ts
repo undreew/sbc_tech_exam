@@ -12,4 +12,8 @@ export type RecipesItem = {
 	description: string;
 	author: string;
 	date_created: number;
+	image: string;
+	id: number | string;
 };
+
+export type Recipes = RecipesItem[];
