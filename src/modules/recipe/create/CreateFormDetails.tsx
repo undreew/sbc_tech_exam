@@ -1,7 +1,23 @@
 import React from 'react';
+import {UseFormReturn} from 'react-hook-form';
 
-function CreateFormDetails() {
-	return <div>CreateFormDetails</div>;
+import {PageCard} from '@/components/page';
+import {RecipeCreate} from '@/models/recipe';
+
+import CreateFormUserInfo from './CreateFormUserInfo';
+import CreateFormRecipeInfo from './CreateFormRecipeInfo';
+interface Props {
+	formValues: UseFormReturn<RecipeCreate>;
+}
+
+function CreateFormDetails(props: Props) {
+	const {formValues} = props;
+	return (
+		<PageCard>
+			<CreateFormUserInfo formValues={formValues} />
+			<CreateFormRecipeInfo formValues={formValues} />
+		</PageCard>
+	);
 }
 
 export default CreateFormDetails;

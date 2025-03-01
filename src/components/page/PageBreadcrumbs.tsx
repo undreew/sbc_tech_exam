@@ -24,13 +24,28 @@ function PageBreadcrumbs(props: Props) {
 					return (
 						<Stack direction='row' key={index}>
 							<ChevronLeft />
-							<Link color='inherit' href={href}>
+							<Typography
+								component={Link}
+								sx={{
+									textDecoration: 'none',
+									':hover': {
+										textDecoration: 'underline',
+									},
+								}}
+								color='inherit'
+								href={href}
+							>
 								{children}
-							</Link>
+							</Typography>
 						</Stack>
 					);
 				}
-				return <Typography key={index}>{children}</Typography>;
+				return (
+					<Typography key={index} color='primary.dark'>
+						{/* replace color  */}
+						{children}
+					</Typography>
+				);
 			})}
 		</Breadcrumbs>
 	);

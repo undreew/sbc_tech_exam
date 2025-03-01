@@ -15,7 +15,7 @@ function CreateBreadcrumbs() {
 	];
 
 	return (
-		<Box sx={{display: 'flex', justifyContent: 'start', mb: 3}}>
+		<Box sx={{display: 'flex', justifyContent: 'start'}}>
 			<PageBreadcrumbs items={items} />
 		</Box>
 	);

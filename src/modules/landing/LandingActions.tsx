@@ -1,22 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
-import {theme} from '@/styles/theme';
-import {Button, Box} from '@mui/material';
-import {Create} from '@mui/icons-material';
+
+import {Add} from '@mui/icons-material';
+import {Button, Stack} from '@mui/material';
+
+import {ROUTES} from '@/constants/routes';
 
 function LandingActions() {
 	return (
-		<Box sx={{display: 'flex', justifyContent: 'end', mb: 5}}>
+		<Stack direction='row' justifyContent='flex-end' sx={{mb: 3}}>
 			<Button
+				size='small'
 				variant='contained'
+				startIcon={<Add />}
 				LinkComponent={Link}
-				startIcon={<Create />}
-				href='/recipe/create'
-				sx={{bgcolor: theme.palette.primary.dark}}
+				href={ROUTES.RECIPE.CREATE}
 			>
-				Create
+				Create Recipe
 			</Button>
-		</Box>
+		</Stack>
 	);
 }
 

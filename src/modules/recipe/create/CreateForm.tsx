@@ -1,12 +1,29 @@
 import React from 'react';
 
-import PageForm from '@/components/page/PageForm';
-import {IFormFields} from './useCreate';
+import useCreate from './useCreate';
+
+import {RecipeCreate} from '@/models/recipe';
+import {PageContent, PageForm} from '@/components/page';
+
+import CreateImageField from './CreateImageField';
+import CreateFormDetails from './CreateFormDetails';
 
 function CreateForm() {
-	function onSubmit(data: IFormFields) {}
+	const formValues = useCreate();
 
-	return <PageForm onSubmit={onSubmit} />;
+	function onSubmit(data: RecipeCreate) {
+		console.log(data);
+		// dispatch to redux??
+	}
+
+	return (
+		<PageForm onSubmit={formValues.handleSubmit(onSubmit)}>
+			<PageContent>
+				<CreateImageField />
+				<CreateFormDetails formValues={formValues} />
+			</PageContent>
+		</PageForm>
+	);
 }
 
 export default CreateForm;

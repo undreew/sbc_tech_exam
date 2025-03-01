@@ -16,11 +16,11 @@ function PageContent(props: Props) {
 
 	return (
 		<Grid container spacing={3}>
-			<Grid item sm={12} md={4}>
+			<Grid item xs={12} sm={12} md={4}>
 				{firstChild}
 			</Grid>
 			{lastChild && (
-				<Grid item sm={12} md={8}>
+				<Grid item xs={12} sm={12} md={8}>
 					{lastChild}
 				</Grid>
 			)}

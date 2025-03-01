@@ -14,7 +14,11 @@ function Layout(props: Props) {
 			<PageHeader />
 			<Toolbar />
 
-			<Container component='main' maxWidth='lg' sx={{p: 3, flexGrow: 1}}>
+			<Container
+				component='main'
+				maxWidth='lg'
+				sx={{p: 3, flexGrow: 1, overflow: 'hidden'}}
+			>
 				{children}
 			</Container>
 		</Box>

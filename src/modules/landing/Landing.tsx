@@ -1,23 +1,23 @@
 import React from 'react';
 
+import {mockData} from '@/constants/mockData';
+import {PageContainer, PageContent} from '@/components/page';
+
 import LandingList from './LandingList';
 import LandingActions from './LandingActions';
 import LandingFilters from './LandingFilters';
 
-import {PageContainer, PageContent} from '@/components/page';
-
-// create components for recipe listing and filters
-function Landing() {
+const HomePage: React.FC = () => {
 	return (
 		<PageContainer>
 			<LandingActions />
 
 			<PageContent>
 				<LandingFilters />
-				<LandingList />
+				<LandingList data={mockData} />
 			</PageContent>
 		</PageContainer>
 	);
-}
+};
 
-export default Landing;
+export default HomePage;
