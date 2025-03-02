@@ -90,6 +90,11 @@ function EditFormUserInfo(props: Props) {
 					</Fragment>
 				);
 			})}
+			<input
+				type='hidden'
+				{...register('date_added')}
+				defaultValue={7901831983}
+			/>
 		</>
 	);
 }
