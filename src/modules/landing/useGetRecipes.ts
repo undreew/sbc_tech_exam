@@ -9,6 +9,7 @@ import {AppDispatch, RootState} from '@/redux/store';
 import {getRecipes} from '@/redux/actions/recipe/getRecipes';
 import {
 	resetCreateRecipesState,
+	resetDeleteRecipeState,
 	resetEditRecipeState,
 	resetGetRecipeState,
 } from '@/redux/features/recipe';
@@ -45,6 +46,7 @@ function useGetRecipes() {
 	useEffect(() => {
 		dispatch(resetGetRecipeState());
 		dispatch(resetEditRecipeState());
+		dispatch(resetDeleteRecipeState());
 		dispatch(resetCreateRecipesState());
 	}, []);
 

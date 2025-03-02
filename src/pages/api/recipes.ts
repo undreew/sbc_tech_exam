@@ -3,6 +3,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import {getRecipes} from './routes/getRecipes';
 import {putRecipes} from './routes/putRecipes';
 import {postRecipes} from './routes/postRecipes';
+import {deleteRecipes} from './routes/deleteRecipes';
 
 export default async function handler(
 	req: NextApiRequest,
@@ -18,6 +19,9 @@ export default async function handler(
 			break;
 		case 'PUT':
 			await putRecipes(req, res);
+			break;
+		case 'DELETE':
+			await deleteRecipes(req, res);
 			break;
 		default:
 			break;

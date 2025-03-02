@@ -2,9 +2,13 @@ import React from 'react';
 
 import EditFormDetails from './EditFormDetails';
 
-import useEdit from './useEdit';
-import {PageContent, PageForm} from '@/components/page';
+import {some} from 'lodash';
+
 import {RecipesItem} from '@/models/recipe';
+import {PageContent, PageForm} from '@/components/page';
+
+import useEdit from './useEdit';
+import useDeleteItem from './useDeleteItem';
 
 interface Props {
 	isLoading: boolean;
@@ -12,20 +16,22 @@ interface Props {
 }
 
 function EditForm(props: Props) {
-	const {isLoading, data} = props;
+	const {isLoading: isFetching, data} = props;
+	const {isLoading: isDeleting, onDelete} = useDeleteItem(data);
 	const {isLoading: isEditing, onSubmit, formValues} = useEdit(data);
+
+	const isLoading = some([isFetching, isEditing, isDeleting]);
 
 	return (
 		<PageForm
-			isSubmitting={isLoading || isEditing}
+			deleteButton
+			deleteAction={onDelete}
+			isSubmitting={isLoading}
 			onSubmit={formValues.handleSubmit(onSubmit)}
 		>
 			<PageContent>
 				<>Image</>
-				<EditFormDetails
-					formValues={formValues}
-					isLoading={isLoading || isEditing}
-				/>
+				<EditFormDetails formValues={formValues} isLoading={isLoading} />
 			</PageContent>
 		</PageForm>
 	);

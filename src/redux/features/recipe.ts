@@ -5,6 +5,7 @@ import {getRecipes} from '../actions/recipe/getRecipes';
 import {createRecipe} from '../actions/recipe/createRecipes';
 import {getRecipe} from '../actions/recipe/getRecipe';
 import {editRecipe} from '../actions/recipe/editRecipe';
+import deleteRecipe from '../actions/recipe/deleteRecipe';
 
 const initialRecipe: RecipesItem = {
 	id: '',
@@ -47,6 +48,11 @@ interface IRecipe {
 		success: boolean | null;
 		error: string | null | undefined;
 	};
+	deleteRecipe: {
+		isLoading: boolean;
+		success: boolean | null;
+		error: string | null | undefined;
+	};
 }
 
 const initialState: IRecipe = {
@@ -68,6 +74,11 @@ const initialState: IRecipe = {
 		error: null,
 	},
 	editRecipe: {
+		isLoading: false,
+		success: null,
+		error: null,
+	},
+	deleteRecipe: {
 		isLoading: false,
 		success: null,
 		error: null,
@@ -97,6 +108,13 @@ const recipeSlice = createSlice({
 		},
 		resetEditRecipeState: (state) => {
 			state.editRecipe = {
+				isLoading: false,
+				success: null,
+				error: null,
+			};
+		},
+		resetDeleteRecipeState: (state) => {
+			state.deleteRecipe = {
 				isLoading: false,
 				success: null,
 				error: null,
@@ -206,15 +224,38 @@ const recipeSlice = createSlice({
 				editRecipe.error = action.error.message;
 				editRecipe.isLoading = false;
 				editRecipe.success = null;
+			})
+			// delete recipe
+			.addCase(deleteRecipe.pending, (state, action) => {
+				const {deleteRecipe} = state;
+
+				deleteRecipe.isLoading = true;
+				deleteRecipe.success = null;
+				deleteRecipe.error = null;
+			})
+			.addCase(deleteRecipe.fulfilled, (state, action) => {
+				const {deleteRecipe} = state;
+
+				deleteRecipe.isLoading = false;
+				deleteRecipe.success = true;
+				deleteRecipe.error = null;
+			})
+			.addCase(deleteRecipe.rejected, (state, action) => {
+				const {deleteRecipe} = state;
+
+				deleteRecipe.error = action.error.message;
+				deleteRecipe.isLoading = false;
+				deleteRecipe.success = null;
 			});
 	},
 });
 
 export const {
-	resetGetRecipesState,
-	resetCreateRecipesState,
 	resetGetRecipeState,
+	resetGetRecipesState,
 	resetEditRecipeState,
+	resetDeleteRecipeState,
+	resetCreateRecipesState,
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;
