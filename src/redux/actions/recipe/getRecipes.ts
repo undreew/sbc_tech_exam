@@ -2,6 +2,8 @@ import {orderBy} from 'lodash';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Recipes, RecipesItem} from '@/models/recipe';
 
+import qs from 'qs';
+
 interface Query {
 	order?: string;
 	order_by?: string;
@@ -16,7 +18,8 @@ export const getRecipes = createAsyncThunk(
 
 		return new Promise<Recipes>(async (resolve, reject) => {
 			try {
-				const res = await fetch('/api/recipes', {
+				const queryString = qs.stringify(queries); // create as a util
+				const res = await fetch(`/api/recipes?${queryString}`, {
 					method: 'GET',
 				});
 
@@ -25,21 +28,7 @@ export const getRecipes = createAsyncThunk(
 
 				let response = await res.json();
 
-				let isFavorite = filter_by_favorites === 'yes' ? true : false;
-
-				if (order && order_by) {
-					response = orderBy(response, [order_by], [order as 'asc' | 'desc']);
-				}
-
-				if (filter_by_favorites) {
-					response = response.filter(
-						(i: RecipesItem) => i.favorites === isFavorite
-					);
-				}
-
-				setTimeout(() => {
-					resolve(response);
-				}, 1500);
+				resolve(response);
 			} catch (error) {
 				setTimeout(() => {
 					reject(error);
