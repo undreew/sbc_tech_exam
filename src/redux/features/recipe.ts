@@ -42,6 +42,12 @@ const recipeSlice = createSlice({
 		getRecipe: (state) => {
 			console.log(state);
 		},
+		resetGetRecipesState: (state) => {
+			state.getRecipes = {isLoading: false, succes: null, error: null};
+		},
+		resetCreateRecipesState: (state) => {
+			state.createRecipes = {isLoading: false, success: null, error: null};
+		},
 	},
 	// put reducers in another folder/files
 	extraReducers: (builder) => {
@@ -102,6 +108,7 @@ const recipeSlice = createSlice({
 	},
 });
 
-export const {} = recipeSlice.actions;
+export const {resetGetRecipesState, resetCreateRecipesState} =
+	recipeSlice.actions;
 
 export default recipeSlice.reducer;

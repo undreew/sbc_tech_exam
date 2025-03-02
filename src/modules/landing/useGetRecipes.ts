@@ -9,6 +9,10 @@ import {getRecipes} from '@/redux/actions/recipe/getRecipes';
 
 import {useAlert} from '../app/AlertProvider';
 import {get} from 'lodash';
+import {
+	resetCreateRecipesState,
+	resetGetRecipesState,
+} from '@/redux/features/recipe';
 
 function useGetRecipes() {
 	const {alertByError} = useAlert();
@@ -34,6 +38,8 @@ function useGetRecipes() {
 	}
 
 	useEffect(() => {
+		dispatch(resetGetRecipesState());
+		dispatch(resetCreateRecipesState());
 		getData();
 	}, [query]);
 
