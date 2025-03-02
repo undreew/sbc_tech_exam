@@ -11,8 +11,7 @@ import {useRouter} from 'next/router';
 import {ROUTES} from '@/constants/routes';
 
 const RecipeCard: React.FC<RecipesItem> = (props) => {
-	const {id, title, description, author, date_created, image, favorites} =
-		props;
+	const {id, title, description, name, date_added, image, favorites} = props;
 
 	const router = useRouter();
 
@@ -57,9 +56,9 @@ const RecipeCard: React.FC<RecipesItem> = (props) => {
 						</Box>
 						<Typography variant='body2'>{description}</Typography>
 						<Grid container justifyContent='space-between' alignItems='center'>
-							<Typography variant='caption'>Added by: {author}</Typography>
+							<Typography variant='caption'>Added by: {name}</Typography>
 							<Typography variant='caption'>
-								Date: {dayjs(date_created).format('MMMM D, YYYY')}
+								Date: {dayjs(date_added).format('MMMM D, YYYY')}
 							</Typography>
 						</Grid>
 					</CardContent>

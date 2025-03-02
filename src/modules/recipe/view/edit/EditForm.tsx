@@ -2,17 +2,27 @@ import React from 'react';
 
 import EditFormDetails from './EditFormDetails';
 
-import {PageContent, PageForm} from '@/components/page';
 import useEdit from './useEdit';
+import {PageContent, PageForm} from '@/components/page';
+import {RecipesItem} from '@/models/recipe';
 
-function EditForm() {
-	const {onSubmit, formValues} = useEdit();
+interface Props {
+	isLoading: boolean;
+	data: RecipesItem;
+}
+
+function EditForm(props: Props) {
+	const {isLoading, data} = props;
+	const {onSubmit, formValues} = useEdit(data);
 
 	return (
-		<PageForm isSubmitting={false} onSubmit={formValues.handleSubmit(onSubmit)}>
+		<PageForm
+			isSubmitting={isLoading}
+			onSubmit={formValues.handleSubmit(onSubmit)}
+		>
 			<PageContent>
 				<>Image</>
-				<EditFormDetails formValues={formValues} />
+				<EditFormDetails isLoading={isLoading} formValues={formValues} />
 			</PageContent>
 		</PageForm>
 	);

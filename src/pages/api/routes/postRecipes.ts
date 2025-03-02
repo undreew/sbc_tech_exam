@@ -11,8 +11,18 @@ export const postRecipes = async (
 	req: NextApiRequest,
 	res: NextApiResponse
 ) => {
-	const {title, description, author, date_created, image, id, favorites} =
-		req.body;
+	const {
+		title,
+		description,
+		name,
+		date_created,
+		image,
+		id,
+		favorites,
+		ingredients,
+		instructions,
+		email_address,
+	} = req.body;
 
 	try {
 		const recipes = await getRecipesController();
@@ -26,10 +36,13 @@ export const postRecipes = async (
 			id,
 			image,
 			title,
-			author,
+			name,
 			favorites,
 			description,
+			ingredients,
+			instructions,
 			date_created,
+			email_address,
 		};
 
 		recipes.push(payload);

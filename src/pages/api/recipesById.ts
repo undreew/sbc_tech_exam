@@ -1,7 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
-import {getRecipes} from './routes/getRecipes';
-import {postRecipes} from './routes/postRecipes';
+import {getRecipeById} from './routes/getRecipeById';
 
 export default async function handler(
 	req: NextApiRequest,
@@ -10,10 +9,7 @@ export default async function handler(
 	await new Promise((resolve) => setTimeout(resolve, 1500));
 	switch (req.method) {
 		case 'GET':
-			await getRecipes(req, res);
-			break;
-		case 'POST':
-			await postRecipes(req, res);
+			await getRecipeById(req, res);
 			break;
 
 		default:

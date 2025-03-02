@@ -1,6 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {RecipePayload, RecipesItem} from '@/models/recipe';
 
+import {v4 as uuidv4} from 'uuid';
+
 export const createRecipe = createAsyncThunk(
 	'recipies/postRecipe',
 	async (payload: RecipePayload) => {
@@ -17,12 +19,14 @@ export const createRecipe = createAsyncThunk(
 		const recipe: RecipesItem = {
 			title,
 			description,
-			author: name,
-			date_created: date_added,
+			name,
+			date_added,
 			image: 'dwa',
-			id: 9,
+			id: uuidv4(),
 			favorites: false,
 			ingredients,
+			instructions,
+			email_address,
 		};
 
 		return new Promise<RecipesItem>(async (resolve, reject) => {

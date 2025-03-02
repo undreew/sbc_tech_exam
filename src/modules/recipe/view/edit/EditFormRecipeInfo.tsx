@@ -3,7 +3,7 @@ import {UseFormReturn} from 'react-hook-form';
 
 import {map} from 'lodash';
 
-import {RecipePayload} from '@/models/recipe';
+import {RecipePayload, RecipesItem} from '@/models/recipe';
 import {FormsField} from '@/components/forms';
 
 import {Box, CardContent, Divider} from '@mui/material';
@@ -12,14 +12,18 @@ import {Cancel, CheckCircle} from '@mui/icons-material';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
+	isLoading: boolean;
+	data: RecipesItem;
 }
 
 function EditFormRecipeInfo(props: Props) {
-	const {formValues} = props;
+	const {formValues, isLoading, data} = props;
 	const {
 		register,
 		formState: {errors, isSubmitting, isValid},
 	} = formValues;
+
+	const {title, description, ingredients, instructions} = data;
 
 	function renderField(
 		field: TextFieldProps & {
@@ -68,6 +72,9 @@ function EditFormRecipeInfo(props: Props) {
 			title: 'Title',
 			helperText: 'What is the title of your recipe?',
 			name: 'title',
+			// value: title,
+			defaultValue: title,
+			disabled: isLoading,
 		},
 		{
 			required: true,
@@ -78,6 +85,9 @@ function EditFormRecipeInfo(props: Props) {
 			multiline: true,
 			minRows: 3,
 			maxRows: 3,
+			// value: description,
+			defaultValue: description,
+			disabled: isLoading,
 		},
 		{
 			required: true,
@@ -88,6 +98,9 @@ function EditFormRecipeInfo(props: Props) {
 			multiline: true,
 			minRows: 5,
 			maxRows: 5,
+			// value: ingredients,
+			defaultValue: ingredients,
+			disabled: isLoading,
 		},
 		{
 			required: true,
@@ -98,6 +111,9 @@ function EditFormRecipeInfo(props: Props) {
 			multiline: true,
 			minRows: 5,
 			maxRows: 5,
+			// value: instructions,
+			defaultValue: instructions,
+			disabled: isLoading,
 		},
 	];
 

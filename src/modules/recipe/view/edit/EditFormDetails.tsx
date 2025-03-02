@@ -5,18 +5,20 @@ import {PageCard} from '@/components/page';
 import {RecipePayload} from '@/models/recipe';
 
 import EditFormUserInfo from './EditFormUserInfo';
-import EditFormRecipeInfo from './EditFormRecipeInfo';
+import EditFormRecipeDetails from './EditFormRecipeDetails';
+import EditFormRecipeContent from './EditFormRecipeContent';
 
 interface Props {
+	isLoading: boolean;
 	formValues: UseFormReturn<RecipePayload>;
 }
 
 function EditFormDetails(props: Props) {
-	const {formValues} = props;
 	return (
 		<PageCard>
-			<EditFormUserInfo formValues={formValues} />
-			<EditFormRecipeInfo formValues={formValues} />
+			<EditFormUserInfo {...props} />
+			<EditFormRecipeDetails {...props} />
+			<EditFormRecipeContent {...props} />
 		</PageCard>
 	);
 }

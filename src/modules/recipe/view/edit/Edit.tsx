@@ -1,14 +1,18 @@
 import React from 'react';
 import {PageContainer} from '@/components/page';
 
-import EditBreadcrumbs from './EditBreadcrumbs';
 import EditForm from './EditForm';
+import EditBreadcrumbs from './EditBreadcrumbs';
+
+import useGetEditItem from './useGetEditItem';
 
 function Edit() {
+	const getItemProps = useGetEditItem();
+
 	return (
 		<PageContainer>
 			<EditBreadcrumbs />
-			<EditForm />
+			<EditForm {...getItemProps} />
 		</PageContainer>
 	);
 }

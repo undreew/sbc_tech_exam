@@ -1,16 +1,17 @@
 import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
+import {CardContent, Divider, TextField} from '@mui/material';
+
 import {FormsField} from '@/components/forms';
 import {RecipePayload} from '@/models/recipe';
-import {Box, CardContent, Divider, TextField} from '@mui/material';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 	isLoading: boolean;
 }
 
-function EditFormUserInfo(props: Props) {
+function EditFormRecipeDetails(props: Props) {
 	const {isLoading, formValues} = props;
 
 	const {
@@ -22,41 +23,45 @@ function EditFormUserInfo(props: Props) {
 		<>
 			<CardContent>
 				<FormsField
-					title='Your Name'
-					helperText='First Name, Middle Initial, Last Name.'
+					title='Title'
+					helperText='What is the title of your recipe?'
 				>
 					<TextField
 						type='text'
-						{...register('name')}
-						placeholder='Name'
+						{...register('title')}
+						placeholder='Title '
 						size='small'
 						margin='normal'
 						fullWidth
-						error={!!errors.name}
-						helperText={errors.name?.message}
-						inputProps={{readOnly: true}}
+						error={!!errors.title}
+						helperText={errors.title?.message}
 						disabled={isLoading}
 						required
 					/>
-					{/* add an ellipsis to indicate loading */}
 				</FormsField>
 			</CardContent>
 
 			<Divider />
 
 			<CardContent>
-				<FormsField title='Email' helperText='Enter an active email address.'>
+				<FormsField
+					title='Description'
+					helperText='Give a brief description about your recipe.'
+				>
 					<TextField
 						type='text'
-						{...register('email_address')}
-						placeholder='Email Address'
+						{...register('description')}
+						placeholder='Description'
 						size='small'
 						margin='normal'
 						fullWidth
-						error={!!errors.email_address}
-						helperText={errors.email_address?.message}
+						error={!!errors.description}
+						helperText={errors.description?.message}
 						disabled={isLoading}
 						required
+						multiline
+						minRows={3}
+						maxRows={3}
 					/>
 				</FormsField>
 			</CardContent>
@@ -66,4 +71,4 @@ function EditFormUserInfo(props: Props) {
 	);
 }
 
-export default EditFormUserInfo;
+export default EditFormRecipeDetails;

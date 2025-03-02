@@ -7,7 +7,10 @@ import cleanDeep from 'clean-deep';
 
 import {AppDispatch, RootState} from '@/redux/store';
 import {getRecipes} from '@/redux/actions/recipe/getRecipes';
-import {resetCreateRecipesState} from '@/redux/features/recipe';
+import {
+	resetCreateRecipesState,
+	resetGetRecipeState,
+} from '@/redux/features/recipe';
 
 import {useAlert} from '../app/AlertProvider';
 
@@ -39,6 +42,7 @@ function useGetRecipes() {
 	}, [query]);
 
 	useEffect(() => {
+		dispatch(resetGetRecipeState());
 		dispatch(resetCreateRecipesState());
 	}, []);
 

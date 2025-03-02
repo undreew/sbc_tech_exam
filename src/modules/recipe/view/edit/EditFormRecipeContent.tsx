@@ -1,16 +1,17 @@
 import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
+import {CardContent, Divider, TextField} from '@mui/material';
+
 import {FormsField} from '@/components/forms';
 import {RecipePayload} from '@/models/recipe';
-import {Box, CardContent, Divider, TextField} from '@mui/material';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 	isLoading: boolean;
 }
 
-function EditFormUserInfo(props: Props) {
+function EditFormRecipeContent(props: Props) {
 	const {isLoading, formValues} = props;
 
 	const {
@@ -22,48 +23,53 @@ function EditFormUserInfo(props: Props) {
 		<>
 			<CardContent>
 				<FormsField
-					title='Your Name'
-					helperText='First Name, Middle Initial, Last Name.'
+					title='Ingredients'
+					helperText='List out the ingredients for your recipe.'
 				>
 					<TextField
 						type='text'
-						{...register('name')}
-						placeholder='Name'
+						{...register('ingredients')}
+						placeholder='Ingredients'
 						size='small'
 						margin='normal'
 						fullWidth
-						error={!!errors.name}
-						helperText={errors.name?.message}
-						inputProps={{readOnly: true}}
+						error={!!errors.ingredients}
+						helperText={errors.ingredients?.message}
 						disabled={isLoading}
 						required
+						multiline
+						minRows={5}
+						maxRows={5}
 					/>
-					{/* add an ellipsis to indicate loading */}
 				</FormsField>
 			</CardContent>
-
 			<Divider />
 
 			<CardContent>
-				<FormsField title='Email' helperText='Enter an active email address.'>
+				<FormsField
+					title='Instructions'
+					helperText='Give step-by-step instructions for preparing your recipe.'
+				>
 					<TextField
 						type='text'
-						{...register('email_address')}
-						placeholder='Email Address'
+						{...register('instructions')}
+						placeholder='instructions'
 						size='small'
 						margin='normal'
 						fullWidth
-						error={!!errors.email_address}
-						helperText={errors.email_address?.message}
+						error={!!errors.ingredients}
+						helperText={errors.ingredients?.message}
 						disabled={isLoading}
 						required
+						multiline
+						minRows={5}
+						maxRows={5}
 					/>
 				</FormsField>
 			</CardContent>
-
 			<Divider />
 		</>
 	);
 }
 
-export default EditFormUserInfo;
+export default EditFormRecipeContent;
