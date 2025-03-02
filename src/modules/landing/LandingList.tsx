@@ -10,10 +10,12 @@ import RecipeCard from '@/components/card/RecipeCard';
 type LandingProps<D> = {
 	data: D;
 	isLoading: boolean;
+	actions: {[key: string]: (arg: any) => void};
 };
 
 const LandingList: React.FC<LandingProps<Recipes>> = (props) => {
-	const {data = [], isLoading} = props;
+	const {data = [], isLoading, actions} = props;
+	const {onFavorite} = actions;
 
 	if (isLoading)
 		return (
@@ -35,7 +37,7 @@ const LandingList: React.FC<LandingProps<Recipes>> = (props) => {
 				{data.map((item, index) => {
 					return (
 						<Fragment key={index}>
-							<RecipeCard key={index} {...item} />
+							<RecipeCard key={index} onFavorite={onFavorite} {...item} />
 							{!(last(data) === item) && <Divider />}
 						</Fragment>
 					);

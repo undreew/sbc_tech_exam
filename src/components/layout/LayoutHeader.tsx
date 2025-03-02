@@ -1,40 +1,39 @@
 import React from 'react';
-import Link from 'next/link';
+import {useRouter} from 'next/router';
 
 import {Home} from '@mui/icons-material';
-import {AppBar, Box, Container, Toolbar, Typography} from '@mui/material';
+import {AppBar, Box, Container} from '@mui/material';
+import {IconButton, Toolbar, Typography} from '@mui/material';
 
 import {FilterSearch} from '../filters';
+import {ROUTES} from '@/constants/routes';
 
 function LayoutHeader() {
+	const router = useRouter();
+
+	function handleRedirect() {
+		router.push({
+			pathname: ROUTES.LANDING.INDEX,
+			query: router.query,
+		});
+	}
+
 	return (
 		<AppBar position='fixed' elevation={0}>
 			<Container maxWidth='lg'>
 				<Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
 					<Typography
 						variant='h6'
-						component={Link}
-						href='/'
 						sx={{
 							color: 'white',
 							textDecoration: 'none',
 						}}
 					>
-						<Home />
+						<IconButton onClick={handleRedirect}>
+							<Home />
+						</IconButton>
 					</Typography>
 					<Box sx={{display: 'flex', gap: 1}}>
-						{/* <TextField
-							size='small'
-							variant='outlined'
-							placeholder='Search here...'
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>
-										<Search fontSize='small' color='action' />
-									</InputAdornment>
-								),
-							}}
-						/> */}
 						<FilterSearch />
 					</Box>
 				</Toolbar>

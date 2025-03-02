@@ -1,17 +1,30 @@
 import React from 'react';
+import {useRouter} from 'next/router';
 
 import dayjs from 'dayjs';
 
 import {Star, StarOutline} from '@mui/icons-material';
-import {Box, Grid, Stack, Typography} from '@mui/material';
 import {Card, CardContent, CardMedia} from '@mui/material';
+import {Box, Grid, IconButton, Stack, Typography} from '@mui/material';
 
 import {RecipesItem} from '@/models/recipe';
-import {useRouter} from 'next/router';
 import {ROUTES} from '@/constants/routes';
 
-const RecipeCard: React.FC<RecipesItem> = (props) => {
-	const {id, title, description, name, date_added, image, favorites} = props;
+interface Props {
+	onFavorite: (id: string) => void;
+}
+
+const RecipeCard: React.FC<RecipesItem & Props> = (props) => {
+	const {
+		id,
+		title,
+		description,
+		name,
+		date_added,
+		image,
+		favorites,
+		onFavorite,
+	} = props;
 
 	const router = useRouter();
 
@@ -26,11 +39,13 @@ const RecipeCard: React.FC<RecipesItem> = (props) => {
 							top={5}
 							sx={{cursor: 'pointer', lineHeight: 0}}
 						>
-							{favorites ? (
-								<Star color='warning' />
-							) : (
-								<StarOutline color='warning' />
-							)}
+							<IconButton onClick={() => onFavorite(id)}>
+								{favorites ? (
+									<Star color='warning' />
+								) : (
+									<StarOutline color='warning' />
+								)}
+							</IconButton>
 						</Box>
 						<CardMedia component='img' alt='image of a woman' src={image} />
 					</Box>

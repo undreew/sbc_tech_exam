@@ -6,6 +6,7 @@ import {createRecipe} from '../actions/recipe/createRecipes';
 import {getRecipe} from '../actions/recipe/getRecipe';
 import {editRecipe} from '../actions/recipe/editRecipe';
 import deleteRecipe from '../actions/recipe/deleteRecipe';
+import {favoriteRecipe} from '../actions/recipe/favoriteRecipe';
 
 const initialRecipe: RecipesItem = {
 	id: '',
@@ -53,6 +54,11 @@ interface IRecipe {
 		success: boolean | null;
 		error: string | null | undefined;
 	};
+	favoriteRecipe: {
+		isLoading: boolean;
+		success: boolean | null;
+		error: string | null | undefined;
+	};
 }
 
 const initialState: IRecipe = {
@@ -79,6 +85,11 @@ const initialState: IRecipe = {
 		error: null,
 	},
 	deleteRecipe: {
+		isLoading: false,
+		success: null,
+		error: null,
+	},
+	favoriteRecipe: {
 		isLoading: false,
 		success: null,
 		error: null,
@@ -246,6 +257,28 @@ const recipeSlice = createSlice({
 				deleteRecipe.error = action.error.message;
 				deleteRecipe.isLoading = false;
 				deleteRecipe.success = null;
+			})
+			// favorite recipe
+			.addCase(favoriteRecipe.pending, (state, action) => {
+				const {favoriteRecipe} = state;
+
+				favoriteRecipe.isLoading = true;
+				favoriteRecipe.success = null;
+				favoriteRecipe.error = null;
+			})
+			.addCase(favoriteRecipe.fulfilled, (state, action) => {
+				const {favoriteRecipe} = state;
+
+				favoriteRecipe.isLoading = false;
+				favoriteRecipe.success = true;
+				favoriteRecipe.error = null;
+			})
+			.addCase(favoriteRecipe.rejected, (state, action) => {
+				const {favoriteRecipe} = state;
+
+				favoriteRecipe.error = action.error.message;
+				favoriteRecipe.isLoading = false;
+				favoriteRecipe.success = null;
 			});
 	},
 });
