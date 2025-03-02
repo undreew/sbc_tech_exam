@@ -36,6 +36,7 @@ function EditFormRecipeDetails(props: Props) {
 						error={!!errors.title}
 						helperText={errors.title?.message}
 						disabled={isLoading}
+						inputProps={{readOnly: true}}
 						required
 					/>
 				</FormsField>

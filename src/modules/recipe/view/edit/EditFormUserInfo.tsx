@@ -34,7 +34,6 @@ function EditFormUserInfo(props: Props) {
 						fullWidth
 						error={!!errors.name}
 						helperText={errors.name?.message}
-						inputProps={{readOnly: true}}
 						disabled={isLoading}
 						required
 					/>
