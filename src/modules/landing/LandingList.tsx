@@ -28,7 +28,17 @@ const LandingList: React.FC<LandingProps<Recipes>> = (props) => {
 		);
 
 	return (
-		<Card>
+		<Card
+			sx={{
+				padding: 2,
+				width: '100%',
+				maxHeight: '70vh',
+				overflowY: 'auto',
+				height: 'max-content',
+				scrollbarWidth: 'thin',
+			}}
+			variant='elevation'
+		>
 			<CardContent component={Stack} gap={3}>
 				{isEmpty(data) && (
 					<Typography variant='h3'>No Record Found!</Typography>
