@@ -58,6 +58,7 @@ function useGetRecipes() {
 
 	return {
 		isLoading,
+		getData,
 		data,
 	};
 }
