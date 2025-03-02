@@ -1,15 +1,22 @@
 import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 
-import {object, string} from 'yup';
+import {number, object, string} from 'yup';
 
 import {RecipePayload, RecipesItem} from '@/models/recipe';
 import {FEEDBACK} from '@/constants/validation';
 import {yupResolver} from '@hookform/resolvers/yup';
 
 function useEdit(data: RecipesItem) {
-	const {name, email_address, title, description, ingredients, instructions} =
-		data;
+	const {
+		name,
+		email_address,
+		title,
+		description,
+		ingredients,
+		instructions,
+		date_added,
+	} = data;
 
 	const validationSchema = object({
 		name: string().min(10).max(50).required(FEEDBACK.REQUIRED),
@@ -18,22 +25,16 @@ function useEdit(data: RecipesItem) {
 		description: string().required(FEEDBACK.REQUIRED),
 		ingredients: string().required(FEEDBACK.REQUIRED),
 		instructions: string().required(FEEDBACK.REQUIRED),
-		// date_added: number().required(),
+		date_added: number().required(),
 	});
-
-	// const defaultValues = {
-	// name: data.name,
-	// email_address: data.email_address,
-	// title: '',
-	// description: '',
-	// ingredients: '',
-	// instructions: '',
-	// date_added: 0,
-	// };
 
 	function onSubmit(formData: RecipePayload) {
 		console.log(formData);
 	}
+
+	const formValues = useForm<RecipePayload>({
+		resolver: yupResolver(validationSchema),
+	});
 
 	useEffect(() => {
 		if (data) {
@@ -43,12 +44,9 @@ function useEdit(data: RecipesItem) {
 			formValues.setValue('description', description);
 			formValues.setValue('ingredients', ingredients);
 			formValues.setValue('instructions', instructions);
+			formValues.setValue('date_added', date_added);
 		}
-	}, [data]);
-
-	const formValues = useForm<RecipePayload>({
-		resolver: yupResolver(validationSchema),
-	});
+	}, [data, formValues.setValue]);
 
 	return {
 		// isSubmitting: isLoading,

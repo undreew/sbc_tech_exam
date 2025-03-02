@@ -2,13 +2,14 @@ import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
 import {PageCard} from '@/components/page';
-import {RecipePayload} from '@/models/recipe';
+import {RecipePayload, RecipesItem} from '@/models/recipe';
 
 import EditFormUserInfo from './EditFormUserInfo';
 import EditFormRecipeDetails from './EditFormRecipeDetails';
 import EditFormRecipeContent from './EditFormRecipeContent';
 
 interface Props {
+	data: RecipesItem;
 	isLoading: boolean;
 	formValues: UseFormReturn<RecipePayload>;
 }

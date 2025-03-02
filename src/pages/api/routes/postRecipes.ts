@@ -15,7 +15,7 @@ export const postRecipes = async (
 		title,
 		description,
 		name,
-		date_created,
+		date_added,
 		image,
 		id,
 		favorites,
@@ -41,7 +41,7 @@ export const postRecipes = async (
 			description,
 			ingredients,
 			instructions,
-			date_created,
+			date_added,
 			email_address,
 		};
 

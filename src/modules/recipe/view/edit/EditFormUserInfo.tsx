@@ -2,16 +2,17 @@ import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
 import {FormsField} from '@/components/forms';
-import {RecipePayload} from '@/models/recipe';
+import {RecipePayload, RecipesItem} from '@/models/recipe';
 import {Box, CardContent, Divider, TextField} from '@mui/material';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 	isLoading: boolean;
+	data: RecipesItem;
 }
 
 function EditFormUserInfo(props: Props) {
-	const {isLoading, formValues} = props;
+	const {isLoading, data, formValues} = props;
 
 	const {
 		register,
@@ -62,6 +63,8 @@ function EditFormUserInfo(props: Props) {
 			</CardContent>
 
 			<Divider />
+
+			<input type='hidden' {...register('date_added')} />
 		</>
 	);
 }

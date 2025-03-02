@@ -22,7 +22,11 @@ function EditForm(props: Props) {
 		>
 			<PageContent>
 				<>Image</>
-				<EditFormDetails isLoading={isLoading} formValues={formValues} />
+				<EditFormDetails
+					data={data}
+					isLoading={isLoading}
+					formValues={formValues}
+				/>
 			</PageContent>
 		</PageForm>
 	);
