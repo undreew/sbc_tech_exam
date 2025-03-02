@@ -4,13 +4,14 @@ import {Checkbox, FormControl, FormControlLabel} from '@mui/material';
 import {map} from 'lodash';
 
 interface Props {
-	defaultValue: string | string[] | undefined;
+	disabled?: boolean;
 	options: {[key: string]: string};
 	onChange: (filter: string) => void;
+	defaultValue: string | string[] | undefined;
 }
 
 function FilterCheckbox(props: Props) {
-	const {options, defaultValue, onChange} = props;
+	const {options, defaultValue, onChange, disabled} = props;
 
 	const _options = map(options, (value, key) => ({label: value, value: key}));
 
@@ -24,6 +25,7 @@ function FilterCheckbox(props: Props) {
 				const {label, value} = option;
 				return (
 					<FormControlLabel
+						disabled={disabled}
 						control={
 							<Checkbox
 								checked={defaultValue === value}

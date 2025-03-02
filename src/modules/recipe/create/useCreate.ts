@@ -6,7 +6,7 @@ import {number, object, string} from 'yup';
 import {get} from 'lodash';
 
 import {AppDispatch, RootState} from '@/redux/store';
-import {RecipeCreate} from '@/models/recipe';
+import {RecipePayload} from '@/models/recipe';
 import {FEEDBACK} from '@/constants/validation';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useAlert} from '@/modules/app/AlertProvider';
@@ -51,7 +51,7 @@ function useCreate() {
 
 	return {
 		isLoading,
-		formValues: useForm<RecipeCreate>({
+		formValues: useForm<RecipePayload>({
 			resolver: yupResolver(validationSchema),
 		}),
 	};

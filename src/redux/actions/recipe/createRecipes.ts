@@ -1,9 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {RecipeCreate, RecipesItem} from '@/models/recipe';
+import {RecipePayload, RecipesItem} from '@/models/recipe';
 
 export const createRecipe = createAsyncThunk(
 	'recipies/postRecipe',
-	async (payload: RecipeCreate) => {
+	async (payload: RecipePayload) => {
 		const {
 			name,
 			email_address,

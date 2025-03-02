@@ -36,7 +36,7 @@ export const postRecipes = async (
 		const updatedRecipes = JSON.stringify(recipes);
 		await fsPromises.writeFile(recipesPath, updatedRecipes);
 
-		res.status(200).json({data: payload});
+		res.status(201).json({data: payload});
 	} catch (error) {
 		res.status(500).json({message: 'Error storing data'});
 	}

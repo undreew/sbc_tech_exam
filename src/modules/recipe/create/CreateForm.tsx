@@ -2,7 +2,7 @@ import React from 'react';
 
 import useCreate from './useCreate';
 
-import {RecipeCreate} from '@/models/recipe';
+import {RecipePayload} from '@/models/recipe';
 import {PageContent, PageForm} from '@/components/page';
 
 import CreateImageField from './CreateImageField';
@@ -16,7 +16,7 @@ function CreateForm() {
 	const {isLoading, formValues} = useCreate();
 	const dispatch = useDispatch<AppDispatch>();
 
-	async function onSubmit(data: RecipeCreate) {
+	async function onSubmit(data: RecipePayload) {
 		await dispatch(createRecipe(data));
 	}
 

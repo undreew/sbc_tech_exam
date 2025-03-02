@@ -1,20 +1,20 @@
 import React, {Fragment} from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
-import {FormsField} from '@/components/forms';
+import {map} from 'lodash';
+
 import {RecipePayload} from '@/models/recipe';
-import {Cancel, CheckCircle} from '@mui/icons-material';
+import {FormsField} from '@/components/forms';
 
 import {Box, CardContent, Divider} from '@mui/material';
 import {TextField, TextFieldProps} from '@mui/material';
-
-import {map} from 'lodash';
+import {Cancel, CheckCircle} from '@mui/icons-material';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 }
 
-function CreateFormUserInfo(props: Props) {
+function EditFormRecipeInfo(props: Props) {
 	const {formValues} = props;
 	const {
 		register,
@@ -27,7 +27,7 @@ function CreateFormUserInfo(props: Props) {
 			helperText: string;
 		}
 	) {
-		const {name, title, helperText, label} = field;
+		const {name, title, helperText, label, ...rest} = field;
 
 		const fieldErrors = errors[name as keyof RecipePayload];
 
@@ -55,6 +55,7 @@ function CreateFormUserInfo(props: Props) {
 						),
 					}}
 					fullWidth
+					{...rest}
 				/>
 			</FormsField>
 		);
@@ -63,17 +64,40 @@ function CreateFormUserInfo(props: Props) {
 	const fields = [
 		{
 			required: true,
-			label: 'Your Name',
-			title: 'Your Name',
-			helperText: 'First Name, Middle Initial, Last Name.',
-			name: 'name',
+			label: 'Title',
+			title: 'Title',
+			helperText: 'What is the title of your recipe?',
+			name: 'title',
 		},
 		{
 			required: true,
-			label: 'Email',
-			title: 'Email Address',
-			helperText: 'Enter an active email address.',
-			name: 'email_address',
+			label: 'Description',
+			title: 'Description',
+			helperText: 'Give a brief description about your recipe.',
+			name: 'description',
+			multiline: true,
+			minRows: 3,
+			maxRows: 3,
+		},
+		{
+			required: true,
+			label: 'Ingredients',
+			title: 'Ingredients',
+			helperText: 'List out the ingredients for your recipe.',
+			name: 'ingredients',
+			multiline: true,
+			minRows: 5,
+			maxRows: 5,
+		},
+		{
+			required: true,
+			label: 'Instructions',
+			title: 'Instructions',
+			helperText: 'Give step-by-step instructions for preparing your recipe.',
+			name: 'instructions',
+			multiline: true,
+			minRows: 5,
+			maxRows: 5,
 		},
 	];
 
@@ -87,9 +111,8 @@ function CreateFormUserInfo(props: Props) {
 					</Fragment>
 				);
 			})}
-			<input type='hidden' {...register('date_added')} value={Date.now()} />
 		</>
 	);
 }
 
-export default CreateFormUserInfo;
+export default EditFormRecipeInfo;

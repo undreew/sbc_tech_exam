@@ -9,13 +9,14 @@ type Option = {
 };
 
 interface Props {
+	disabled?: boolean;
 	options: {[key: string]: string};
 	defaultValue: string | string[] | undefined;
 	onChange: (newValue: string | null) => void;
 }
 
 function FilterSelect(props: Props) {
-	const {options, onChange, defaultValue} = props;
+	const {options, onChange, defaultValue, disabled} = props;
 
 	const _options = map(options, (value, key) => ({label: value, value: key}));
 	const selectedOption = find(_options, (item) => item.value === defaultValue);
@@ -28,9 +29,10 @@ function FilterSelect(props: Props) {
 		<Autocomplete
 			loading={false}
 			options={_options}
+			disabled={disabled}
 			onChange={handleChange}
 			value={selectedOption || null}
-			autoHighlight={true}
+			autoHighlight
 			renderInput={(params) => (
 				<TextField {...params} label='Sort' size='small' margin='normal' />
 			)}

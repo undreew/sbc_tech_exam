@@ -4,20 +4,21 @@ import {UseFormReturn} from 'react-hook-form';
 import {PageCard} from '@/components/page';
 import {RecipePayload} from '@/models/recipe';
 
-import CreateFormUserInfo from './CreateFormUserInfo';
-import CreateFormRecipeInfo from './CreateFormRecipeInfo';
+import EditFormUserInfo from './EditFormUserInfo';
+import EditFormRecipeInfo from './EditFormRecipeInfo';
+
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 }
 
-function CreateFormDetails(props: Props) {
+function EditFormDetails(props: Props) {
 	const {formValues} = props;
 	return (
 		<PageCard>
-			<CreateFormUserInfo formValues={formValues} />
-			<CreateFormRecipeInfo formValues={formValues} />
+			<EditFormUserInfo formValues={formValues} />
+			<EditFormRecipeInfo formValues={formValues} />
 		</PageCard>
 	);
 }
 
-export default CreateFormDetails;
+export default EditFormDetails;

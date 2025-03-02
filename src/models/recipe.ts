@@ -1,4 +1,4 @@
-export type RecipeCreate = {
+export type RecipePayload = {
 	name: string;
 	email_address: string;
 	title: string;

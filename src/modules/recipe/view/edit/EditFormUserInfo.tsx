@@ -1,20 +1,20 @@
 import React, {Fragment} from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
-import {FormsField} from '@/components/forms';
-import {RecipePayload} from '@/models/recipe';
-import {Cancel, CheckCircle} from '@mui/icons-material';
+import {map} from 'lodash';
 
 import {Box, CardContent, Divider} from '@mui/material';
 import {TextField, TextFieldProps} from '@mui/material';
 
-import {map} from 'lodash';
+import {FormsField} from '@/components/forms';
+import {RecipePayload} from '@/models/recipe';
+import {Cancel, CheckCircle} from '@mui/icons-material';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 }
 
-function CreateFormUserInfo(props: Props) {
+function EditFormUserInfo(props: Props) {
 	const {formValues} = props;
 	const {
 		register,
@@ -27,7 +27,7 @@ function CreateFormUserInfo(props: Props) {
 			helperText: string;
 		}
 	) {
-		const {name, title, helperText, label} = field;
+		const {name, title, helperText, label, ...rest} = field;
 
 		const fieldErrors = errors[name as keyof RecipePayload];
 
@@ -54,6 +54,7 @@ function CreateFormUserInfo(props: Props) {
 							</Box>
 						),
 					}}
+					{...rest}
 					fullWidth
 				/>
 			</FormsField>
@@ -67,11 +68,13 @@ function CreateFormUserInfo(props: Props) {
 			title: 'Your Name',
 			helperText: 'First Name, Middle Initial, Last Name.',
 			name: 'name',
+			defaultValue: 'James De Jesus', // temp
+			inputProps: {readOnly: true},
 		},
 		{
 			required: true,
 			label: 'Email',
-			title: 'Email Address',
+			title: 'Email',
 			helperText: 'Enter an active email address.',
 			name: 'email_address',
 		},
@@ -87,9 +90,8 @@ function CreateFormUserInfo(props: Props) {
 					</Fragment>
 				);
 			})}
-			<input type='hidden' {...register('date_added')} value={Date.now()} />
 		</>
 	);
 }
 
-export default CreateFormUserInfo;
+export default EditFormUserInfo;

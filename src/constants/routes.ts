@@ -7,9 +7,9 @@ export const ROUTES = {
 		INDEX: '/recipe/',
 		CREATE: '/recipe/create',
 		VIEW: {
-			INDEX: '/recipe/:id',
-			EDIT: '/recipe/:id/edit',
-			DELETE: '/recipe/:id/delete',
+			INDEX: '/recipe/[id]',
+			EDIT: '/recipe/[id]/edit',
+			DELETE: '/recipe/[id]/delete',
 		},
 	},
 };
