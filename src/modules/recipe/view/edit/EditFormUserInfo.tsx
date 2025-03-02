@@ -64,6 +64,7 @@ function EditFormUserInfo(props: Props) {
 			<Divider />
 
 			<input type='hidden' {...register('date_added')} />
+			<input type='hidden' {...register('id')} />
 		</>
 	);
 }

@@ -4,9 +4,10 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getRecipes} from '../actions/recipe/getRecipes';
 import {createRecipe} from '../actions/recipe/createRecipes';
 import {getRecipe} from '../actions/recipe/getRecipe';
+import {editRecipe} from '../actions/recipe/editRecipe';
 
-const initialRecipe = {
-	id: 0,
+const initialRecipe: RecipesItem = {
+	id: '',
 	image: '',
 	ingredients: '',
 	date_added: 0,
@@ -40,6 +41,12 @@ interface IRecipe {
 		success: boolean | null;
 		error: string | null | undefined;
 	};
+
+	editRecipe: {
+		isLoading: boolean;
+		success: boolean | null;
+		error: string | null | undefined;
+	};
 }
 
 const initialState: IRecipe = {
@@ -56,6 +63,11 @@ const initialState: IRecipe = {
 	},
 	getRecipe: {
 		data: initialRecipe,
+		isLoading: false,
+		success: null,
+		error: null,
+	},
+	editRecipe: {
 		isLoading: false,
 		success: null,
 		error: null,
@@ -78,6 +90,13 @@ const recipeSlice = createSlice({
 		resetGetRecipeState: (state) => {
 			state.getRecipe = {
 				data: initialRecipe,
+				isLoading: false,
+				success: null,
+				error: null,
+			};
+		},
+		resetEditRecipeState: (state) => {
+			state.editRecipe = {
 				isLoading: false,
 				success: null,
 				error: null,
@@ -165,6 +184,28 @@ const recipeSlice = createSlice({
 				getRecipe.error = action.error.message;
 				getRecipe.isLoading = false;
 				getRecipe.success = null;
+			})
+			// updated recipe by id
+			.addCase(editRecipe.pending, (state, action) => {
+				const {editRecipe} = state;
+
+				editRecipe.isLoading = true;
+				editRecipe.success = null;
+				editRecipe.error = null;
+			})
+			.addCase(editRecipe.fulfilled, (state, action) => {
+				const {editRecipe} = state;
+
+				editRecipe.isLoading = false;
+				editRecipe.success = true;
+				editRecipe.error = null;
+			})
+			.addCase(editRecipe.rejected, (state, action) => {
+				const {editRecipe} = state;
+
+				editRecipe.error = action.error.message;
+				editRecipe.isLoading = false;
+				editRecipe.success = null;
 			});
 	},
 });
@@ -173,6 +214,7 @@ export const {
 	resetGetRecipesState,
 	resetCreateRecipesState,
 	resetGetRecipeState,
+	resetEditRecipeState,
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

@@ -2,16 +2,11 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {AppDispatch, RootState} from '@/redux/store';
-import {useAlert} from '@/modules/app/AlertProvider';
 import {getRecipe} from '@/redux/actions/recipe/getRecipe';
 import {useRouter} from 'next/router';
-import {
-	resetGetRecipesState,
-	resetGetRecipeState,
-} from '@/redux/features/recipe';
+import {has} from 'lodash';
 
 function useGetEditItem() {
-	const {alertByError} = useAlert();
 	const dispatch = useDispatch<AppDispatch>();
 	const recipeState = useSelector((state: RootState) => state.recipe.getRecipe);
 	const {isLoading, data} = recipeState;
@@ -24,14 +19,10 @@ function useGetEditItem() {
 	}
 
 	useEffect(() => {
-		if (query) {
+		if (has(query, 'id')) {
 			getData();
 		}
 	}, [query]);
-
-	// useEffect(() => {
-	// 	dispatch(resetGetRecipeState());
-	// }, []);
 
 	return {
 		isLoading,

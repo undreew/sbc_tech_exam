@@ -43,13 +43,9 @@ export const createRecipe = createAsyncThunk(
 
 				if (!res.ok) throw new Error('Title must be unique.');
 
-				setTimeout(() => {
-					resolve(data);
-				}, 1500);
+				resolve(data);
 			} catch (error) {
-				setTimeout(() => {
-					reject(error);
-				}, 1500);
+				reject(error);
 			}
 		});
 	}

@@ -13,16 +13,19 @@ interface Props {
 
 function EditForm(props: Props) {
 	const {isLoading, data} = props;
-	const {onSubmit, formValues} = useEdit(data);
+	const {isLoading: isEditing, onSubmit, formValues} = useEdit(data);
 
 	return (
 		<PageForm
-			isSubmitting={isLoading}
+			isSubmitting={isLoading || isEditing}
 			onSubmit={formValues.handleSubmit(onSubmit)}
 		>
 			<PageContent>
 				<>Image</>
-				<EditFormDetails isLoading={isLoading} formValues={formValues} />
+				<EditFormDetails
+					formValues={formValues}
+					isLoading={isLoading || isEditing}
+				/>
 			</PageContent>
 		</PageForm>
 	);

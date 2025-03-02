@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
 import {getRecipes} from './routes/getRecipes';
+import {putRecipes} from './routes/putRecipes';
 import {postRecipes} from './routes/postRecipes';
 
 export default async function handler(
@@ -15,7 +16,9 @@ export default async function handler(
 		case 'POST':
 			await postRecipes(req, res);
 			break;
-
+		case 'PUT':
+			await putRecipes(req, res);
+			break;
 		default:
 			break;
 	}

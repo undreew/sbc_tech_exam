@@ -6,6 +6,8 @@ export type RecipePayload = {
 	ingredients: string;
 	instructions: string;
 	date_added: number;
+	id?: string;
+	favorites?: boolean;
 };
 
 // export type RecipePayloadTest = {
@@ -23,7 +25,7 @@ export type RecipesItem = {
 	name: string;
 	date_added: number; // temp
 	image: string;
-	id: number | string;
+	id: string;
 	favorites: boolean;
 	//
 	ingredients: string;
