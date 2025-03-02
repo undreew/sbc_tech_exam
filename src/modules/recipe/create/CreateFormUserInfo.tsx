@@ -66,14 +66,14 @@ function CreateFormUserInfo(props: Props) {
 			label: 'Your Name',
 			title: 'Your Name',
 			helperText: 'First Name, Middle Initial, Last Name.',
-			name: 'your_name',
+			name: 'name',
 		},
 		{
 			required: true,
 			label: 'Email',
 			title: 'Email Address',
 			helperText: 'Enter an active email address.',
-			name: 'email',
+			name: 'email_address',
 		},
 	];
 
@@ -87,6 +87,7 @@ function CreateFormUserInfo(props: Props) {
 					</Fragment>
 				);
 			})}
+			<input type='hidden' {...register('date_added')} value={Date.now()} />
 		</>
 	);
 }

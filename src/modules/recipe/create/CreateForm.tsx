@@ -8,16 +8,23 @@ import {PageContent, PageForm} from '@/components/page';
 import CreateImageField from './CreateImageField';
 import CreateFormDetails from './CreateFormDetails';
 
-function CreateForm() {
-	const formValues = useCreate();
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '@/redux/store';
+import {createRecipe} from '@/redux/actions/recipe/createRecipes';
 
-	function onSubmit(data: RecipeCreate) {
-		console.log(data);
-		// dispatch to redux??
+function CreateForm() {
+	const {isLoading, formValues} = useCreate();
+	const dispatch = useDispatch<AppDispatch>();
+
+	async function onSubmit(data: RecipeCreate) {
+		await dispatch(createRecipe(data));
 	}
 
 	return (
-		<PageForm onSubmit={formValues.handleSubmit(onSubmit)}>
+		<PageForm
+			isSubmitting={isLoading}
+			onSubmit={formValues.handleSubmit(onSubmit)}
+		>
 			<PageContent>
 				<CreateImageField />
 				<CreateFormDetails formValues={formValues} />

@@ -1,8 +1,6 @@
-import {cloneDeep, orderBy} from 'lodash';
-
-import {Recipes} from '@/models/recipe';
-import {mockData} from '@/constants/mockData';
+import {orderBy} from 'lodash';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {Recipes, RecipesItem} from '@/models/recipe';
 
 interface Query {
 	order?: string;
@@ -11,13 +9,22 @@ interface Query {
 }
 
 export const getRecipes = createAsyncThunk(
-	'recipes/fetchRecipes',
-	async (queries: Query) => {
+	'recipes/getRecipes',
+	async (queries: Query): Promise<Recipes> => {
 		const {order, order_by, filter_by_favorites} = queries;
+		// improve query handling, should happend in the api routes
 
-		return new Promise<Recipes>((resolve, reject) => {
-			setTimeout(() => {
-				let response = cloneDeep(mockData);
+		return new Promise<Recipes>(async (resolve, reject) => {
+			try {
+				const res = await fetch('/api/recipes', {
+					method: 'GET',
+				});
+
+				// improve error handling, should have dynamic error message from api routes
+				if (!res.ok) throw new Error('Error fetching recipes.');
+
+				let response = await res.json();
+
 				let isFavorite = filter_by_favorites === 'yes' ? true : false;
 
 				if (order && order_by) {
@@ -25,13 +32,19 @@ export const getRecipes = createAsyncThunk(
 				}
 
 				if (filter_by_favorites) {
-					response = response.filter((i) => i.favorites === isFavorite);
+					response = response.filter(
+						(i: RecipesItem) => i.favorites === isFavorite
+					);
 				}
 
-				resolve(response as Recipes);
-
-				// reject('hahahaha mali');
-			}, 2000);
+				setTimeout(() => {
+					resolve(response);
+				}, 1500);
+			} catch (error) {
+				setTimeout(() => {
+					reject(error);
+				}, 1500);
+			}
 		});
 	}
 );

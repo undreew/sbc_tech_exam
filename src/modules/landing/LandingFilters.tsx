@@ -46,7 +46,7 @@ function LandingFilters() {
 			actions={
 				size(query) > 0 && (
 					<Button variant='outlined' size='small' onClick={handleClear}>
-						Clear Filters
+						Clear
 					</Button>
 				)
 			}

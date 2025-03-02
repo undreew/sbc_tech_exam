@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
-import {Card, CardContent} from '@mui/material';
+import {Card, CardContent, Typography} from '@mui/material';
 import {Divider, Skeleton, Stack} from '@mui/material';
 
-import {last} from 'lodash';
+import {isEmpty, last} from 'lodash';
 
 import {Recipes} from '@/models/recipe';
 import RecipeCard from '@/components/card/RecipeCard';
@@ -13,7 +13,7 @@ type LandingProps<D> = {
 };
 
 const LandingList: React.FC<LandingProps<Recipes>> = (props) => {
-	const {data, isLoading} = props;
+	const {data = [], isLoading} = props;
 
 	if (isLoading)
 		return (
@@ -28,6 +28,10 @@ const LandingList: React.FC<LandingProps<Recipes>> = (props) => {
 	return (
 		<Card>
 			<CardContent component={Stack} gap={3}>
+				{isEmpty(data) && (
+					<Typography variant='h3'>No Record Found!</Typography>
+				)}
+
 				{data.map((item, index) => {
 					return (
 						<Fragment key={index}>

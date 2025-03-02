@@ -8,6 +8,7 @@ import {AppDispatch, RootState} from '@/redux/store';
 import {getRecipes} from '@/redux/actions/recipe/getRecipes';
 
 import {useAlert} from '../app/AlertProvider';
+import {get} from 'lodash';
 
 function useGetRecipes() {
 	const {alertByError} = useAlert();
@@ -24,19 +25,25 @@ function useGetRecipes() {
 
 	const dispatch = useDispatch<AppDispatch>();
 	const recipeState = useSelector((state: RootState) => state.recipe);
-	const {isLoading, data} = recipeState;
+
+	const {data} = recipeState;
+	const {isLoading, error} = get(recipeState, 'getRecipes');
 
 	async function getData() {
-		try {
-			dispatch(getRecipes(queries));
-		} catch (error) {
-			alertByError(error as string); // temp
-		}
+		dispatch(getRecipes(queries));
 	}
 
 	useEffect(() => {
 		getData();
 	}, [query]);
+
+	console.log(recipeState);
+
+	useEffect(() => {
+		if (!isLoading) {
+			if (!!error) return alertByError(error);
+		}
+	}, [isLoading, error]);
 
 	return {
 		isLoading,
