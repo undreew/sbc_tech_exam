@@ -67,7 +67,6 @@ function EditFormRecipeContent(props: Props) {
 					/>
 				</FormsField>
 			</CardContent>
-			<Divider />
 		</>
 	);
 }

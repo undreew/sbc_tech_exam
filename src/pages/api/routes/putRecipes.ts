@@ -1,5 +1,5 @@
 import path from 'path';
-import {filter} from 'lodash';
+import {filter, merge} from 'lodash';
 import fsPromises from 'fs/promises';
 import {RecipesItem} from '@/models/recipe';
 import {FEEDBACK} from '@/constants/validation';
@@ -21,7 +21,7 @@ export const putRecipes = async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 
 		const updatedRecipes = recipes.map((recipe: RecipesItem) =>
-			recipe.id === id ? {...recipe, ...req.body} : recipe
+			recipe.id === id ? merge({}, recipe, req.body) : recipe
 		);
 
 		await fsPromises.writeFile(recipesPath, JSON.stringify(updatedRecipes));
