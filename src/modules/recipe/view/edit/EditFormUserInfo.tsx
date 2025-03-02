@@ -8,11 +8,10 @@ import {Box, CardContent, Divider, TextField} from '@mui/material';
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 	isLoading: boolean;
-	data: RecipesItem;
 }
 
 function EditFormUserInfo(props: Props) {
-	const {isLoading, data, formValues} = props;
+	const {isLoading, formValues} = props;
 
 	const {
 		register,
