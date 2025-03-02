@@ -1,15 +1,19 @@
 import React from 'react';
-import {Box, Grid, Typography} from '@mui/material';
+
+import dayjs from 'dayjs';
+
 import {Star, StarOutline} from '@mui/icons-material';
+import {Box, Grid, Stack, Typography} from '@mui/material';
 import {Card, CardContent, CardMedia} from '@mui/material';
 
 import {RecipesItem} from '@/models/recipe';
-import Link from 'next/link';
-import dayjs from 'dayjs';
+import {useRouter} from 'next/router';
+import {ROUTES} from '@/constants/routes';
 
 const RecipeCard: React.FC<RecipesItem> = (props) => {
-	const {id, title, description, author, date_created, image, favorites} =
-		props;
+	const {id, title, description, name, date_added, image, favorites} = props;
+
+	const router = useRouter();
 
 	return (
 		<Card variant='outlined'>
@@ -33,20 +37,28 @@ const RecipeCard: React.FC<RecipesItem> = (props) => {
 				</Grid>
 
 				<Grid item xs={8}>
-					<CardContent>
-						<Typography
-							variant='h5'
-							component={Link}
-							sx={{color: 'black', textDecoration: 'none'}}
-							href={`/recipe/${id}`}
-						>
-							{title}
-						</Typography>
+					<CardContent component={Stack} gap={3} flexGrow={1}>
+						<Box>
+							<Typography
+								variant='h5'
+								sx={{cursor: 'pointer', width: 'max-content'}}
+								onClick={
+									() =>
+										router.push({
+											pathname: ROUTES.RECIPE.VIEW.EDIT,
+											query: {id},
+										})
+									// temp -> can go to view first
+								}
+							>
+								{title}
+							</Typography>
+						</Box>
 						<Typography variant='body2'>{description}</Typography>
 						<Grid container justifyContent='space-between' alignItems='center'>
-							<Typography variant='caption'>Added by: {author}</Typography>
+							<Typography variant='caption'>Added by: {name}</Typography>
 							<Typography variant='caption'>
-								Date: {dayjs(date_created).format('MMMM D, YYYY')}
+								Date: {dayjs(date_added).format('MMMM D, YYYY')}
 							</Typography>
 						</Grid>
 					</CardContent>

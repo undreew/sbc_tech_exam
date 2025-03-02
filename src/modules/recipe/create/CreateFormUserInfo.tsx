@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
 import {FormsField} from '@/components/forms';
-import {RecipeCreate} from '@/models/recipe';
+import {RecipePayload} from '@/models/recipe';
 import {Cancel, CheckCircle} from '@mui/icons-material';
 
 import {Box, CardContent, Divider} from '@mui/material';
@@ -11,7 +11,7 @@ import {TextField, TextFieldProps} from '@mui/material';
 import {map} from 'lodash';
 
 interface Props {
-	formValues: UseFormReturn<RecipeCreate>;
+	formValues: UseFormReturn<RecipePayload>;
 }
 
 function CreateFormUserInfo(props: Props) {
@@ -29,7 +29,7 @@ function CreateFormUserInfo(props: Props) {
 	) {
 		const {name, title, helperText, label} = field;
 
-		const fieldErrors = errors[name as keyof RecipeCreate];
+		const fieldErrors = errors[name as keyof RecipePayload];
 
 		return (
 			<FormsField title={title} helperText={helperText}>
@@ -42,7 +42,7 @@ function CreateFormUserInfo(props: Props) {
 					error={!!fieldErrors}
 					disabled={isSubmitting}
 					helperText={fieldErrors?.message}
-					{...register(name as keyof RecipeCreate)}
+					{...register(name as keyof RecipePayload)}
 					InputProps={{
 						endAdornment: (
 							<Box ml={2} display='flex' alignItems='center'>
@@ -82,7 +82,7 @@ function CreateFormUserInfo(props: Props) {
 			{map(fields, (field, index) => {
 				return (
 					<Fragment key={index}>
-						<CardContent key={index}>{renderField(field)}</CardContent>
+						<CardContent>{renderField(field)}</CardContent>
 						<Divider />
 					</Fragment>
 				);

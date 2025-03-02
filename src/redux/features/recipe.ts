@@ -3,6 +3,21 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {getRecipes} from '../actions/recipe/getRecipes';
 import {createRecipe} from '../actions/recipe/createRecipes';
+import {getRecipe} from '../actions/recipe/getRecipe';
+import {editRecipe} from '../actions/recipe/editRecipe';
+
+const initialRecipe: RecipesItem = {
+	id: '',
+	image: '',
+	ingredients: '',
+	date_added: 0,
+	name: '',
+	description: '',
+	title: '',
+	favorites: false,
+	email_address: '',
+	instructions: '',
+};
 
 interface IRecipe {
 	// global state
@@ -15,6 +30,19 @@ interface IRecipe {
 	};
 
 	createRecipes: {
+		isLoading: boolean;
+		success: boolean | null;
+		error: string | null | undefined;
+	};
+
+	getRecipe: {
+		data: RecipesItem;
+		isLoading: boolean;
+		success: boolean | null;
+		error: string | null | undefined;
+	};
+
+	editRecipe: {
 		isLoading: boolean;
 		success: boolean | null;
 		error: string | null | undefined;
@@ -33,6 +61,17 @@ const initialState: IRecipe = {
 		success: null,
 		error: null,
 	},
+	getRecipe: {
+		data: initialRecipe,
+		isLoading: false,
+		success: null,
+		error: null,
+	},
+	editRecipe: {
+		isLoading: false,
+		success: null,
+		error: null,
+	},
 };
 
 const recipeSlice = createSlice({
@@ -41,6 +80,27 @@ const recipeSlice = createSlice({
 	reducers: {
 		getRecipe: (state) => {
 			console.log(state);
+		},
+		resetGetRecipesState: (state) => {
+			state.getRecipes = {isLoading: false, succes: null, error: null};
+		},
+		resetCreateRecipesState: (state) => {
+			state.createRecipes = {isLoading: false, success: null, error: null};
+		},
+		resetGetRecipeState: (state) => {
+			state.getRecipe = {
+				data: initialRecipe,
+				isLoading: false,
+				success: null,
+				error: null,
+			};
+		},
+		resetEditRecipeState: (state) => {
+			state.editRecipe = {
+				isLoading: false,
+				success: null,
+				error: null,
+			};
 		},
 	},
 	// put reducers in another folder/files
@@ -98,10 +158,63 @@ const recipeSlice = createSlice({
 				createRecipes.success = null;
 				createRecipes.isLoading = false;
 				createRecipes.error = action.error.message;
+			})
+			// get recipe by id
+			.addCase(getRecipe.pending, (state, action) => {
+				const {getRecipe} = state;
+
+				getRecipe.isLoading = true;
+				getRecipe.success = null;
+				getRecipe.error = null;
+			})
+			.addCase(
+				getRecipe.fulfilled,
+				(state, action: PayloadAction<RecipesItem>) => {
+					const {getRecipe} = state;
+
+					getRecipe.data = action.payload;
+					getRecipe.isLoading = false;
+					getRecipe.success = true;
+					getRecipe.error = null;
+				}
+			)
+			.addCase(getRecipe.rejected, (state, action) => {
+				const {getRecipe} = state;
+
+				getRecipe.error = action.error.message;
+				getRecipe.isLoading = false;
+				getRecipe.success = null;
+			})
+			// updated recipe by id
+			.addCase(editRecipe.pending, (state, action) => {
+				const {editRecipe} = state;
+
+				editRecipe.isLoading = true;
+				editRecipe.success = null;
+				editRecipe.error = null;
+			})
+			.addCase(editRecipe.fulfilled, (state, action) => {
+				const {editRecipe} = state;
+
+				editRecipe.isLoading = false;
+				editRecipe.success = true;
+				editRecipe.error = null;
+			})
+			.addCase(editRecipe.rejected, (state, action) => {
+				const {editRecipe} = state;
+
+				editRecipe.error = action.error.message;
+				editRecipe.isLoading = false;
+				editRecipe.success = null;
 			});
 	},
 });
 
-export const {} = recipeSlice.actions;
+export const {
+	resetGetRecipesState,
+	resetCreateRecipesState,
+	resetGetRecipeState,
+	resetEditRecipeState,
+} = recipeSlice.actions;
 
 export default recipeSlice.reducer;

@@ -2,13 +2,18 @@ import {useEffect} from 'react';
 import {useRouter} from 'next/router';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {get} from 'lodash';
 import cleanDeep from 'clean-deep';
 
 import {AppDispatch, RootState} from '@/redux/store';
 import {getRecipes} from '@/redux/actions/recipe/getRecipes';
+import {
+	resetCreateRecipesState,
+	resetEditRecipeState,
+	resetGetRecipeState,
+} from '@/redux/features/recipe';
 
 import {useAlert} from '../app/AlertProvider';
-import {get} from 'lodash';
 
 function useGetRecipes() {
 	const {alertByError} = useAlert();
@@ -37,7 +42,11 @@ function useGetRecipes() {
 		getData();
 	}, [query]);
 
-	console.log(recipeState);
+	useEffect(() => {
+		dispatch(resetGetRecipeState());
+		dispatch(resetEditRecipeState());
+		dispatch(resetCreateRecipesState());
+	}, []);
 
 	useEffect(() => {
 		if (!isLoading) {

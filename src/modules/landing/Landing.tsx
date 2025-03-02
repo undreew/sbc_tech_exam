@@ -9,15 +9,15 @@ import LandingFilters from './LandingFilters';
 import useGetRecipes from './useGetRecipes';
 
 const HomePage: React.FC = () => {
-	const {isLoading, data} = useGetRecipes();
+	const getRecipesProps = useGetRecipes();
 
 	return (
 		<PageContainer>
-			<LandingActions />
+			<LandingActions isLoading={getRecipesProps.isLoading} />
 
 			<PageContent>
-				<LandingFilters />
-				<LandingList data={data} isLoading={isLoading} />
+				<LandingFilters isLoading={getRecipesProps.isLoading} />
+				<LandingList {...getRecipesProps} />
 			</PageContent>
 		</PageContainer>
 	);

@@ -11,8 +11,18 @@ export const postRecipes = async (
 	req: NextApiRequest,
 	res: NextApiResponse
 ) => {
-	const {title, description, author, date_created, image, id, favorites} =
-		req.body;
+	const {
+		title,
+		description,
+		name,
+		date_added,
+		image,
+		id,
+		favorites,
+		ingredients,
+		instructions,
+		email_address,
+	} = req.body;
 
 	try {
 		const recipes = await getRecipesController();
@@ -26,17 +36,20 @@ export const postRecipes = async (
 			id,
 			image,
 			title,
-			author,
+			name,
 			favorites,
 			description,
-			date_created,
+			ingredients,
+			instructions,
+			date_added,
+			email_address,
 		};
 
 		recipes.push(payload);
 		const updatedRecipes = JSON.stringify(recipes);
 		await fsPromises.writeFile(recipesPath, updatedRecipes);
 
-		res.status(200).json({data: payload});
+		res.status(201).json({data: payload});
 	} catch (error) {
 		res.status(500).json({message: 'Error storing data'});
 	}

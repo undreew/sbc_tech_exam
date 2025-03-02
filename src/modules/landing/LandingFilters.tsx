@@ -11,7 +11,7 @@ import {FilterCheckbox, FilterSelect} from '@/components/filters';
 import cleanDeep from 'clean-deep';
 import {assign, merge, omit, size} from 'lodash';
 
-function LandingFilters() {
+function LandingFilters({isLoading}: {isLoading: boolean}) {
 	const router = useRouter();
 
 	const {pathname, query} = router;
@@ -45,7 +45,12 @@ function LandingFilters() {
 			}
 			actions={
 				size(query) > 0 && (
-					<Button variant='outlined' size='small' onClick={handleClear}>
+					<Button
+						variant='outlined'
+						size='small'
+						onClick={handleClear}
+						disabled={isLoading}
+					>
 						Clear
 					</Button>
 				)
@@ -58,6 +63,7 @@ function LandingFilters() {
 				>
 					<FilterSelect
 						options={SORT_BY}
+						disabled={isLoading}
 						defaultValue={order}
 						onChange={(option) => handleChange(option, 'order')}
 					/>
@@ -65,6 +71,7 @@ function LandingFilters() {
 
 				<FormsField title='Filter by Favorites' helperText='Favorites?'>
 					<FilterCheckbox
+						disabled={isLoading}
 						options={FILTER_BY_FAVORITE}
 						defaultValue={filter_by_favorites}
 						onChange={(filter) => handleChange(filter, 'filter_by_favorites')}

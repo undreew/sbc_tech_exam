@@ -1,18 +1,23 @@
 import {useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import {number, object, string} from 'yup';
 
 import {get} from 'lodash';
 
-import {RootState} from '@/redux/store';
-import {RecipeCreate} from '@/models/recipe';
+import {AppDispatch, RootState} from '@/redux/store';
+import {RecipePayload} from '@/models/recipe';
 import {FEEDBACK} from '@/constants/validation';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useAlert} from '@/modules/app/AlertProvider';
+import {
+	resetCreateRecipesState,
+	resetGetRecipesState,
+} from '@/redux/features/recipe';
 
 function useCreate() {
 	const {alertBySuccess, alertByError} = useAlert();
+	const dispatch = useDispatch<AppDispatch>();
 	const recipeState = useSelector((state: RootState) => state.recipe);
 	const {isLoading, success, error} = get(recipeState, 'createRecipes');
 
@@ -31,6 +36,11 @@ function useCreate() {
 	});
 
 	useEffect(() => {
+		dispatch(resetGetRecipesState());
+		dispatch(resetCreateRecipesState());
+	}, []);
+
+	useEffect(() => {
 		if (!!error) {
 			return alertByError(error);
 		}
@@ -41,7 +51,7 @@ function useCreate() {
 
 	return {
 		isLoading,
-		formValues: useForm<RecipeCreate>({
+		formValues: useForm<RecipePayload>({
 			resolver: yupResolver(validationSchema),
 		}),
 	};
