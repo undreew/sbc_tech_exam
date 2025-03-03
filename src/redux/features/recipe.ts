@@ -27,7 +27,7 @@ interface IRecipe {
 
 	getRecipes: {
 		isLoading: boolean;
-		succes: boolean | null;
+		success: boolean | null;
 		error: string | null | undefined;
 	};
 
@@ -65,7 +65,7 @@ const initialState: IRecipe = {
 	data: [],
 	getRecipes: {
 		isLoading: false,
-		succes: null,
+		success: null,
 		error: null,
 	},
 	createRecipes: {
@@ -104,7 +104,7 @@ const recipeSlice = createSlice({
 			console.log(state);
 		},
 		resetGetRecipesState: (state) => {
-			state.getRecipes = {isLoading: false, succes: null, error: null};
+			state.getRecipes = {isLoading: false, success: null, error: null};
 		},
 		resetCreateRecipesState: (state) => {
 			state.createRecipes = {isLoading: false, success: null, error: null};
@@ -140,7 +140,7 @@ const recipeSlice = createSlice({
 				const {getRecipes} = state;
 
 				getRecipes.isLoading = true;
-				getRecipes.succes = null;
+				getRecipes.success = null;
 				getRecipes.error = null;
 			})
 			.addCase(
@@ -148,7 +148,7 @@ const recipeSlice = createSlice({
 				(state, action: PayloadAction<Recipes>) => {
 					const {getRecipes} = state;
 
-					getRecipes.succes = true;
+					getRecipes.success = true;
 					getRecipes.error = null;
 					getRecipes.isLoading = false;
 					state.data = action.payload;
@@ -159,7 +159,7 @@ const recipeSlice = createSlice({
 
 				getRecipes.error = action.error.message;
 				getRecipes.isLoading = false;
-				getRecipes.succes = null;
+				getRecipes.success = null;
 			})
 			// create recipe
 			.addCase(createRecipe.pending, (state) => {
