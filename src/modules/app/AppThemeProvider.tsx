@@ -4,7 +4,7 @@ import {CssBaseline} from '@mui/material';
 import {ThemeProvider} from '@emotion/react';
 
 interface Props {
-	children: React.ReactNode;
+	children: Children;
 }
 
 function AppThemeProvider(props: Props) {

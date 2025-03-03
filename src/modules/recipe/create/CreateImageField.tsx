@@ -1,10 +1,11 @@
-import {ImageUpload} from '@/components/images';
-import InputImage from '@/components/input/InputImage';
+import React from 'react';
+import {useSelector} from 'react-redux';
+import {UseFormReturn} from 'react-hook-form';
+
+import {RootState} from '@/redux/store';
 import {PageCard} from '@/components/page';
 import {RecipePayload} from '@/models/recipe';
-import {Card, CardContent, CardMedia} from '@mui/material';
-import React from 'react';
-import {UseFormReturn} from 'react-hook-form';
+import {InputImage} from '@/components/input';
 
 interface Props {
 	isLoading: boolean;
@@ -13,18 +14,13 @@ interface Props {
 
 function CreateImageField(props: Props) {
 	const {formValues} = props;
+	const isCreateSuccess = useSelector(
+		(state: RootState) => state.recipe.createRecipes.success
+	);
 
 	return (
 		<PageCard>
-			{/* <CardMedia
-				component='img'
-				alt='image of a woman'
-				src='/images/aphrodite.png'
-			/> */}
-
-			{/* <InputImage formValues={formValues} /> */}
-
-			<InputImage formValues={formValues} />
+			<InputImage formValues={formValues} resetValue={!!isCreateSuccess} />
 		</PageCard>
 	);
 }

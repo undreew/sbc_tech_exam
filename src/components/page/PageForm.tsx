@@ -6,7 +6,7 @@ interface Props {
 	onSubmit: () => void;
 	deleteButton?: boolean;
 	isSubmitting: boolean;
-	children: React.ReactNode;
+	children: Children;
 	deleteAction?: () => void;
 }
 

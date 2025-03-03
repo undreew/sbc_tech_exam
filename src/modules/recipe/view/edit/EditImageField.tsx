@@ -1,11 +1,10 @@
 import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
-
-import {RecipePayload, RecipesItem} from '@/models/recipe';
+import {ImageListType} from 'react-images-uploading';
 
 import {PageCard} from '@/components/page';
-import InputImage from '@/components/input/InputImage';
-import {ImageListType} from 'react-images-uploading';
+import {InputImage} from '@/components/input';
+import {RecipePayload} from '@/models/recipe';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;

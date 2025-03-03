@@ -1,25 +1,32 @@
 import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
-import {mixed, number, object, string} from 'yup';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {get} from 'lodash';
+import {mixed, number, object, string} from 'yup';
 
-import {AppDispatch, RootState} from '@/redux/store';
 import {RecipePayload} from '@/models/recipe';
 import {FEEDBACK} from '@/constants/validation';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useAlert} from '@/modules/app/AlertProvider';
+
 import {
-	resetCreateRecipesState,
 	resetGetRecipesState,
+	resetCreateRecipesState,
 } from '@/redux/features/recipe';
+import {AppDispatch, RootState} from '@/redux/store';
+import {createRecipe} from '@/redux/actions/recipe/createRecipes';
 
 function useCreate() {
 	const {alertBySuccess, alertByError} = useAlert();
+
 	const dispatch = useDispatch<AppDispatch>();
 	const recipeState = useSelector((state: RootState) => state.recipe);
 	const {isLoading, success, error} = get(recipeState, 'createRecipes');
+
+	async function onSubmit(data: RecipePayload) {
+		await dispatch(createRecipe(data));
+	}
 
 	const validationSchema = object({
 		name: string().min(10).max(50).required(FEEDBACK.REQUIRED),
@@ -34,12 +41,10 @@ function useCreate() {
 		instructions: string().required(FEEDBACK.REQUIRED),
 		date_added: number().required(),
 		image: mixed(),
-		// .test(
-		// 	'fileRequired',
-		// 	FEEDBACK.REQUIRED,
-		// 	(value) => value instanceof File
-		// ),
-		// .required(FEEDBACK.REQUIRED),
+	});
+
+	const formValues = useForm<RecipePayload>({
+		resolver: yupResolver(validationSchema),
 	});
 
 	useEffect(() => {
@@ -49,18 +54,29 @@ function useCreate() {
 
 	useEffect(() => {
 		if (!!error) {
+			console.log(error);
+
 			return alertByError(error);
 		}
 		if (!!success) {
+			formValues.resetField('name');
+			formValues.resetField('email_address');
+			formValues.resetField('title');
+			formValues.resetField('description');
+			formValues.resetField('ingredients');
+			formValues.resetField('instructions');
+			formValues.resetField('date_added');
+			formValues.resetField('id');
+			formValues.resetField('image');
 			return alertBySuccess('Successfully created a recipe');
 		}
+		// add reset of state here with router as dependency
 	}, [error, success]);
 
 	return {
 		isLoading,
-		formValues: useForm<RecipePayload>({
-			resolver: yupResolver(validationSchema),
-		}),
+		onSubmit,
+		formValues,
 	};
 }
 

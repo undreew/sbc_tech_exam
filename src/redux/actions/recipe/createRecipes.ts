@@ -1,8 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {RecipePayload, RecipesItem} from '@/models/recipe';
 
-import {v4 as uuidv4} from 'uuid';
-
 export const createRecipe = createAsyncThunk(
 	'recipies/postRecipe',
 	async (payload: RecipePayload) => {
@@ -40,8 +38,6 @@ export const createRecipe = createAsyncThunk(
 			}
 		}
 
-		// formData.forEach((key, item) => console.log(item + ' : ' + key));
-
 		return new Promise<RecipesItem>(async (resolve, reject) => {
 			try {
 				const res = await fetch('/api/recipes', {
@@ -49,7 +45,7 @@ export const createRecipe = createAsyncThunk(
 					body: formData,
 				});
 				const data = await res.json();
-				if (!res.ok) throw new Error('Title must be unique.');
+				if (!res.ok) throw new Error(data.message);
 				resolve(data);
 			} catch (error) {
 				reject(error);

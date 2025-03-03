@@ -3,7 +3,7 @@ import React from 'react';
 import {Provider} from 'react-redux';
 
 interface Props {
-	children: React.ReactNode;
+	children: Children;
 }
 
 function ReduxProvider(props: Props) {
