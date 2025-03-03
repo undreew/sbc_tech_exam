@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {Card, CardContent, Divider, Stack} from '@mui/material';
 
 interface Props {
-	children: React.ReactNode;
+	children: Children;
 	title?: React.ReactNode | string;
 	actions?: React.ReactElement | boolean;
 }

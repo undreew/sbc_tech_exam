@@ -4,7 +4,7 @@ import {Box, FormHelperText, Stack, Typography} from '@mui/material';
 interface Props {
 	title?: string;
 	helperText?: string;
-	children: React.ReactNode;
+	children: Children;
 }
 
 function FormsField(props: Props) {

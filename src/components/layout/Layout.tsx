@@ -4,7 +4,7 @@ import {Box, Container, Toolbar} from '@mui/material';
 import PageHeader from './LayoutHeader';
 
 interface Props {
-	children: React.ReactNode;
+	children: Children;
 }
 
 function Layout(props: Props) {

@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import {drop, first, last} from 'lodash';
 
 interface Props {
-	children: React.ReactNode | React.ReactNode[];
+	children: Children | Children[];
 }
 
 function PageContent(props: Props) {

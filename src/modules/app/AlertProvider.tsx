@@ -2,7 +2,7 @@ import {useSnackbar} from 'notistack';
 import React, {createContext, useContext} from 'react';
 
 interface Props {
-	children: React.ReactNode;
+	children: Children;
 }
 
 interface IAlertContext {

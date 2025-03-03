@@ -4,7 +4,7 @@ import {SnackbarProvider} from 'notistack';
 import styles from './NotistackProvider.module.css';
 
 interface Props {
-	children: React.ReactNode;
+	children: Children;
 }
 
 function NotistackProvider(props: Props) {

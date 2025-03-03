@@ -6,7 +6,7 @@ import NotistackProvider from './NotistackProvider';
 import ReduxProvider from './ReduxProvider';
 
 interface Props {
-	children: React.ReactNode;
+	children: Children;
 }
 
 function AppProviders(props: Props) {
