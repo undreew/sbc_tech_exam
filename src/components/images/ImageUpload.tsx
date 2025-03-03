@@ -5,7 +5,7 @@ import ImageUploader, {ImageListType} from 'react-images-uploading';
 import {CloudUpload} from '@mui/icons-material';
 import {Box, IconButton, Stack, Typography} from '@mui/material';
 
-import {isEmpty, keys, map} from 'lodash';
+import {isEmpty, join, keys, map} from 'lodash';
 import {RecipePayload} from '@/models/recipe';
 import {ACCEPTED_IMAGE_FILES} from '@/constants/mimetypes';
 
@@ -78,7 +78,7 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 										<strong>Upload</strong> your files here
 									</Typography>
 									<Typography variant='caption'>
-										Files supported: img, png
+										Files supported: {join(acceptType, ', ')}
 									</Typography>
 								</>
 							)}
