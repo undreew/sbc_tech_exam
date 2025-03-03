@@ -5,7 +5,7 @@ export const deleteRecipe = createAsyncThunk(
 	(id: string): Promise<void> => {
 		return new Promise<void>(async (resolve, reject) => {
 			try {
-				const res = await fetch('/api/recipes', {
+				const res = await fetch('/api/recipeDelete', {
 					method: 'DELETE',
 					body: JSON.stringify({id}),
 					headers: {

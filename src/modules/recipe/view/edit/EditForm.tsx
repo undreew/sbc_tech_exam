@@ -9,6 +9,7 @@ import {PageContent, PageForm} from '@/components/page';
 
 import useEdit from './useEdit';
 import useDeleteItem from './useDeleteItem';
+import EditImageField from './EditImageField';
 
 interface Props {
 	isLoading: boolean;
@@ -18,7 +19,7 @@ interface Props {
 function EditForm(props: Props) {
 	const {isLoading: isFetching, data} = props;
 	const {isLoading: isDeleting, onDelete} = useDeleteItem(data);
-	const {isLoading: isEditing, onSubmit, formValues} = useEdit(data);
+	const {isLoading: isEditing, onSubmit, formValues, image} = useEdit(data);
 
 	const isLoading = some([isFetching, isEditing, isDeleting]);
 
@@ -30,7 +31,7 @@ function EditForm(props: Props) {
 			onSubmit={formValues.handleSubmit(onSubmit)}
 		>
 			<PageContent>
-				<>Image</>
+				<EditImageField formValues={formValues} data={image} />
 				<EditFormDetails formValues={formValues} isLoading={isLoading} />
 			</PageContent>
 		</PageForm>

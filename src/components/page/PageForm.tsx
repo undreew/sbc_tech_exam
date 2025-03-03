@@ -4,10 +4,10 @@ import {Box, Button} from '@mui/material';
 interface Props {
 	okButton?: boolean;
 	onSubmit: () => void;
-	deleteButton: boolean;
+	deleteButton?: boolean;
 	isSubmitting: boolean;
 	children: React.ReactNode;
-	deleteAction: () => void;
+	deleteAction?: () => void;
 }
 
 function PageForm(props: Props) {

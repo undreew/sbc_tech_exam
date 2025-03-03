@@ -11,6 +11,7 @@ import {RecipesItem} from '@/models/recipe';
 import {ROUTES} from '@/constants/routes';
 
 interface Props {
+	isLoading: boolean;
 	onFavorite: (id: string) => void;
 }
 
@@ -24,6 +25,7 @@ const RecipeCard: React.FC<RecipesItem & Props> = (props) => {
 		image,
 		favorites,
 		onFavorite,
+		isLoading,
 	} = props;
 
 	const router = useRouter();
@@ -39,7 +41,7 @@ const RecipeCard: React.FC<RecipesItem & Props> = (props) => {
 							top={5}
 							sx={{cursor: 'pointer', lineHeight: 0}}
 						>
-							<IconButton onClick={() => onFavorite(id)}>
+							<IconButton onClick={() => onFavorite(id)} disabled={isLoading}>
 								{favorites ? (
 									<Star color='warning' />
 								) : (

@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
-import {number, object, string} from 'yup';
+import {mixed, number, object, string} from 'yup';
 
 import {get} from 'lodash';
 
@@ -33,6 +33,13 @@ function useCreate() {
 		ingredients: string().required(FEEDBACK.REQUIRED),
 		instructions: string().required(FEEDBACK.REQUIRED),
 		date_added: number().required(),
+		image: mixed(),
+		// .test(
+		// 	'fileRequired',
+		// 	FEEDBACK.REQUIRED,
+		// 	(value) => value instanceof File
+		// ),
+		// .required(FEEDBACK.REQUIRED),
 	});
 
 	useEffect(() => {
