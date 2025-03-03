@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
+import {FieldValues, UseFormReturn} from 'react-hook-form';
 import ImageUploader, {ImageListType} from 'react-images-uploading';
 
-import {Box, Button, IconButton, Stack, Typography} from '@mui/material';
 import {CloudUpload} from '@mui/icons-material';
-import {FieldValues, UseFormReturn} from 'react-hook-form';
-import {RecipePayload} from '@/models/recipe';
+import {Box, IconButton, Stack, Typography} from '@mui/material';
+
 import {isEmpty} from 'lodash';
+import {RecipePayload} from '@/models/recipe';
 
 interface ImageUploadProps<T extends FieldValues> {
+	resetValue?: boolean;
 	defaultValue: ImageListType;
 	formValues: UseFormReturn<T>;
 	onChange: (image: File | undefined) => void;
 }
 
 const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
-	const {formValues, onChange, defaultValue} = props;
-
-	// console.log(defaultValue);
+	const {formValues, onChange, defaultValue, resetValue} = props;
 
 	const [image, setImage] = useState<ImageListType>(defaultValue);
 
@@ -24,9 +24,7 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 		imageList: ImageListType,
 		addUpdateIndex: number[] | undefined
 	) {
-		// onChange(imageList as never);
 		setImage(imageList as never[]);
-
 		onChange(imageList[0].file);
 	}
 
@@ -36,6 +34,12 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 		}
 	}, [defaultValue]);
 
+	useEffect(() => {
+		if (resetValue) {
+			setImage([]);
+		}
+	}, [resetValue]);
+
 	return (
 		<Box>
 			<ImageUploader
@@ -44,13 +48,7 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 				acceptType={['jpg', 'jpeg', 'png', 'webp', 'gif']}
 				dataURLKey='dataURL'
 			>
-				{({
-					imageList,
-					onImageUpload,
-					onImageRemove,
-					dragProps,
-					onImageUpdate,
-				}) => (
+				{({imageList, onImageUpload, dragProps}) => (
 					<Box
 						sx={{
 							display: 'flex',
@@ -86,10 +84,6 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 							return (
 								<Box key={index} width='100%' height='100%'>
 									<img src={image['dataURL']} alt='' width='200px' />
-									<Box>
-										{/* <button onClick={() => onImageUpdate(index)}>Update</button>
-								<button onClick={() => onImageRemove(index)}>Remove</button> */}
-									</Box>
 								</Box>
 							);
 						})}

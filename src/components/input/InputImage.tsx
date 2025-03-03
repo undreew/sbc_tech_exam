@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
-import {Box, Button} from '@mui/material';
-import ImageUploading, {ImageListType} from 'react-images-uploading';
-import {CloudUpload} from '@mui/icons-material';
+import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
-import {RecipePayload, RecipesItem} from '@/models/recipe';
+import {ImageListType} from 'react-images-uploading';
+
+import {Box} from '@mui/material';
 import {ImageUpload} from '../images';
-import {first} from 'lodash';
+import {RecipePayload} from '@/models/recipe';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 	data?: ImageListType;
+	resetValue: boolean;
 }
 
 function InputImage(props: Props) {
-	const {formValues, data} = props;
+	const {formValues, data, resetValue} = props;
 
 	function handleChange(image: File | undefined) {
 		console.log(image);
@@ -25,6 +25,7 @@ function InputImage(props: Props) {
 			<ImageUpload
 				onChange={handleChange}
 				formValues={formValues}
+				resetValue={resetValue}
 				defaultValue={data as never}
 			/>
 		</Box>
