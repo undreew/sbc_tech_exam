@@ -38,12 +38,6 @@ export const postRecipes = async (
 			const newFileName = uploadedFile.newFilename;
 			const imagePath = `/images/${newFileName}`;
 
-			const {title} = fields;
-
-			if (filter(recipes, {title}).length > 0) {
-				return res.status(500).json({message: 'Title already exists'});
-			}
-
 			const normalizeFields = (fields: Record<string, any>) => {
 				return mapValues(fields, (value, key) => {
 					const fieldValue = isArray(value) ? first(value) : value;
@@ -60,6 +54,12 @@ export const postRecipes = async (
 			};
 
 			const normalizedFields = normalizeFields(fields);
+
+			const {title} = normalizedFields;
+
+			if (filter(recipes, {title}).length > 0) {
+				return res.status(500).json({message: 'Title already exists'});
+			}
 
 			const recipePayload = {
 				...normalizedFields,
