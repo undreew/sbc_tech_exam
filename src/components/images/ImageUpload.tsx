@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ImageUploader, {ImageListType} from 'react-images-uploading';
 
 import {Box, Button, IconButton, Stack, Typography} from '@mui/material';
@@ -8,14 +8,17 @@ import {RecipePayload} from '@/models/recipe';
 import {isEmpty} from 'lodash';
 
 interface ImageUploadProps<T extends FieldValues> {
+	defaultValue: ImageListType;
 	formValues: UseFormReturn<T>;
 	onChange: (image: File | undefined) => void;
 }
 
 const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
-	const {formValues, onChange} = props;
+	const {formValues, onChange, defaultValue} = props;
 
-	const [image, setImage] = useState([]);
+	// console.log(defaultValue);
+
+	const [image, setImage] = useState<ImageListType>(defaultValue);
 
 	function handleChange(
 		imageList: ImageListType,
@@ -27,12 +30,19 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 		onChange(imageList[0].file);
 	}
 
+	useEffect(() => {
+		if (!isEmpty(defaultValue)) {
+			setImage(defaultValue);
+		}
+	}, [defaultValue]);
+
 	return (
 		<Box>
 			<ImageUploader
 				value={image}
 				onChange={handleChange}
 				acceptType={['jpg', 'jpeg', 'png', 'webp', 'gif']}
+				dataURLKey='dataURL'
 			>
 				{({
 					imageList,
@@ -72,15 +82,17 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 
 						<input type='hidden' {...formValues.register('image')} />
 
-						{imageList.map((image, index) => (
-							<Box key={index} width='100%' height='100%'>
-								<img src={image['dataURL']} alt='' width='200px' />
-								<Box>
-									{/* <button onClick={() => onImageUpdate(index)}>Update</button>
-									<button onClick={() => onImageRemove(index)}>Remove</button> */}
+						{imageList.map((image, index) => {
+							return (
+								<Box key={index} width='100%' height='100%'>
+									<img src={image['dataURL']} alt='' width='200px' />
+									<Box>
+										{/* <button onClick={() => onImageUpdate(index)}>Update</button>
+								<button onClick={() => onImageRemove(index)}>Remove</button> */}
+									</Box>
 								</Box>
-							</Box>
-						))}
+							);
+						})}
 					</Box>
 				)}
 			</ImageUploader>
