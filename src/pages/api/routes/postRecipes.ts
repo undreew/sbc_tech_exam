@@ -47,14 +47,14 @@ export const postRecipes = async (
 				: files.image;
 
 			if (!uploadedFile) {
-				return res.status(400).json({error: 'No file uploaded'});
+				return res.status(500).json({message: 'No file uploaded!!'});
 			}
 
 			const normalizedFields = normalizeFields(fields);
 			const {title} = normalizedFields;
 
 			if (filter(recipes, {title}).length > 0) {
-				return res.status(500).json({message: 'Title already exists'});
+				return res.status(500).json({message: 'Title already exists!!'});
 			}
 
 			const safeTitle = title.replace(/[\/\\:*?"<>|]/g, '').trim();

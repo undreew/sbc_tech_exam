@@ -25,7 +25,6 @@ const normalizeFields = (fields: Record<string, any>) => {
 };
 
 export const putRecipes = async (req: NextApiRequest, res: NextApiResponse) => {
-	// const {title, id} = req.body;
 	const recipes = await getRecipesController();
 
 	try {
@@ -36,14 +35,14 @@ export const putRecipes = async (req: NextApiRequest, res: NextApiResponse) => {
 		});
 
 		form.parse(req, async (err, fields, files) => {
-			if (err) return res.status(500).json({error: 'Error parsing form'});
+			if (err) return res.status(500).json({message: 'Error parsing form'});
 
 			const uploadedFile = Array.isArray(files.image)
 				? files.image[0]
 				: files.image;
 
 			if (!uploadedFile) {
-				return res.status(400).json({error: 'No file uploaded'});
+				return res.status(400).json({message: 'No file uploaded'});
 			}
 
 			const newFileName = uploadedFile.newFilename;

@@ -54,6 +54,8 @@ function useCreate() {
 
 	useEffect(() => {
 		if (!!error) {
+			console.log(error);
+
 			return alertByError(error);
 		}
 		if (!!success) {
