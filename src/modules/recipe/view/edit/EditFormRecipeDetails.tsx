@@ -1,10 +1,11 @@
 import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
-import {CardContent, Divider, TextField} from '@mui/material';
+import {Box, CardContent, Divider, TextField} from '@mui/material';
 
 import {FormsField} from '@/components/forms';
 import {RecipePayload} from '@/models/recipe';
+import {Cancel, CheckCircle} from '@mui/icons-material';
 
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
@@ -16,7 +17,7 @@ function EditFormRecipeDetails(props: Props) {
 
 	const {
 		register,
-		formState: {errors},
+		formState: {errors, isValid},
 	} = formValues;
 
 	return (
@@ -38,6 +39,17 @@ function EditFormRecipeDetails(props: Props) {
 						disabled={isLoading}
 						inputProps={{readOnly: true}}
 						required
+						InputProps={{
+							endAdornment: (
+								<Box ml={2} display='flex' alignItems='center'>
+									{!!errors.title ? (
+										<Cancel color='error' />
+									) : (
+										isValid && <CheckCircle color='success' />
+									)}
+								</Box>
+							),
+						}}
 					/>
 				</FormsField>
 			</CardContent>
@@ -63,6 +75,17 @@ function EditFormRecipeDetails(props: Props) {
 						multiline
 						minRows={3}
 						maxRows={3}
+						InputProps={{
+							endAdornment: (
+								<Box ml={2} display='flex' alignItems='center'>
+									{!!errors.description ? (
+										<Cancel color='error' />
+									) : (
+										isValid && <CheckCircle color='success' />
+									)}
+								</Box>
+							),
+						}}
 					/>
 				</FormsField>
 			</CardContent>

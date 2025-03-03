@@ -2,7 +2,8 @@ import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
 import {FormsField} from '@/components/forms';
-import {RecipePayload, RecipesItem} from '@/models/recipe';
+import {RecipePayload} from '@/models/recipe';
+import {Cancel, CheckCircle} from '@mui/icons-material';
 import {Box, CardContent, Divider, TextField} from '@mui/material';
 
 interface Props {
@@ -15,7 +16,7 @@ function EditFormUserInfo(props: Props) {
 
 	const {
 		register,
-		formState: {errors},
+		formState: {errors, isValid},
 	} = formValues;
 
 	return (
@@ -36,6 +37,17 @@ function EditFormUserInfo(props: Props) {
 						helperText={errors.name?.message}
 						disabled={isLoading}
 						required
+						InputProps={{
+							endAdornment: (
+								<Box ml={2} display='flex' alignItems='center'>
+									{!!errors.name ? (
+										<Cancel color='error' />
+									) : (
+										isValid && <CheckCircle color='success' />
+									)}
+								</Box>
+							),
+						}}
 					/>
 					{/* add an ellipsis to indicate loading */}
 				</FormsField>
@@ -56,6 +68,17 @@ function EditFormUserInfo(props: Props) {
 						helperText={errors.email_address?.message}
 						disabled={isLoading}
 						required
+						InputProps={{
+							endAdornment: (
+								<Box ml={2} display='flex' alignItems='center'>
+									{!!errors.email_address ? (
+										<Cancel color='error' />
+									) : (
+										isValid && <CheckCircle color='success' />
+									)}
+								</Box>
+							),
+						}}
 					/>
 				</FormsField>
 			</CardContent>

@@ -1,7 +1,8 @@
 import React from 'react';
 import {UseFormReturn} from 'react-hook-form';
 
-import {CardContent, Divider, TextField} from '@mui/material';
+import {Cancel, CheckCircle} from '@mui/icons-material';
+import {Box, CardContent, Divider, TextField} from '@mui/material';
 
 import {FormsField} from '@/components/forms';
 import {RecipePayload} from '@/models/recipe';
@@ -16,7 +17,7 @@ function EditFormRecipeContent(props: Props) {
 
 	const {
 		register,
-		formState: {errors},
+		formState: {errors, isValid},
 	} = formValues;
 
 	return (
@@ -40,6 +41,17 @@ function EditFormRecipeContent(props: Props) {
 						multiline
 						minRows={5}
 						maxRows={5}
+						InputProps={{
+							endAdornment: (
+								<Box ml={2} display='flex' alignItems='center'>
+									{!!errors.ingredients ? (
+										<Cancel color='error' />
+									) : (
+										isValid && <CheckCircle color='success' />
+									)}
+								</Box>
+							),
+						}}
 					/>
 				</FormsField>
 			</CardContent>
@@ -57,13 +69,24 @@ function EditFormRecipeContent(props: Props) {
 						size='small'
 						margin='normal'
 						fullWidth
-						error={!!errors.ingredients}
-						helperText={errors.ingredients?.message}
+						error={!!errors.instructions}
+						helperText={errors.instructions?.message}
 						disabled={isLoading}
 						required
 						multiline
 						minRows={5}
 						maxRows={5}
+						InputProps={{
+							endAdornment: (
+								<Box ml={2} display='flex' alignItems='center'>
+									{!!errors.instructions ? (
+										<Cancel color='error' />
+									) : (
+										isValid && <CheckCircle color='success' />
+									)}
+								</Box>
+							),
+						}}
 					/>
 				</FormsField>
 			</CardContent>

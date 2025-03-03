@@ -9,7 +9,7 @@ import {RecipePayload} from '@/models/recipe';
 interface Props {
 	formValues: UseFormReturn<RecipePayload>;
 	data?: ImageListType;
-	resetValue: boolean;
+	resetValue?: boolean;
 }
 
 function InputImage(props: Props) {
