@@ -26,7 +26,7 @@ function CreateForm() {
 			onSubmit={formValues.handleSubmit(onSubmit)}
 		>
 			<PageContent>
-				<CreateImageField />
+				<CreateImageField isLoading={isLoading} formValues={formValues} />
 				<CreateFormDetails formValues={formValues} />
 			</PageContent>
 		</PageForm>

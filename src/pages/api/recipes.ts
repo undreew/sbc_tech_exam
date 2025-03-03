@@ -1,9 +1,10 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 
 import {getRecipes} from './routes/getRecipes';
-import {putRecipes} from './routes/putRecipes';
 import {postRecipes} from './routes/postRecipes';
-import {deleteRecipes} from './routes/deleteRecipes';
+
+// must be false to support formData, disables body parsing for json
+export const config = {api: {bodyParser: false}};
 
 export default async function handler(
 	req: NextApiRequest,
@@ -17,12 +18,7 @@ export default async function handler(
 		case 'POST':
 			await postRecipes(req, res);
 			break;
-		case 'PUT':
-			await putRecipes(req, res);
-			break;
-		case 'DELETE':
-			await deleteRecipes(req, res);
-			break;
+
 		default:
 			break;
 	}

@@ -6,7 +6,7 @@ export const editRecipe = createAsyncThunk(
 	(formData: RecipePayload): Promise<RecipesItem> => {
 		return new Promise<RecipesItem>(async (resolve, reject) => {
 			try {
-				const res = await fetch('/api/recipes', {
+				const res = await fetch('/api/recipeEdit', {
 					method: 'PUT',
 					body: JSON.stringify(formData),
 					headers: {

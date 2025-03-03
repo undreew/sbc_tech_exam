@@ -47,7 +47,12 @@ const LandingList: React.FC<LandingProps<Recipes>> = (props) => {
 				{data.map((item, index) => {
 					return (
 						<Fragment key={index}>
-							<RecipeCard key={index} onFavorite={onFavorite} {...item} />
+							<RecipeCard
+								key={index}
+								isLoading={isLoading}
+								onFavorite={onFavorite}
+								{...item}
+							/>
 							{!(last(data) === item) && <Divider />}
 						</Fragment>
 					);

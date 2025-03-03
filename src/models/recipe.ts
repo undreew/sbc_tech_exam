@@ -8,6 +8,7 @@ export type RecipePayload = {
 	date_added: number;
 	id?: string;
 	favorites?: boolean;
+	image?: File | undefined; // Allow File or null for image uploads
 };
 
 // export type RecipePayloadTest = {
