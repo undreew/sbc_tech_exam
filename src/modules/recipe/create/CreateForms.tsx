@@ -1,26 +1,28 @@
 import React from 'react';
 
-import useCreate from './useCreate';
-
 import {PageContent, PageForm} from '@/components/page';
 
+import useCreate from './useCreate';
 import CreateImageField from './CreateImageField';
-import CreateFormDetails from './CreateFormDetails';
+import CreateFormsDetails from './CreateFormsDetails';
 
-function CreateForm() {
+interface Props {}
+
+const CreateForms: React.FC<Props> = () => {
 	const {isLoading, formValues, onSubmit} = useCreate();
 
 	return (
 		<PageForm
+			formValues={formValues}
 			isSubmitting={isLoading}
 			onSubmit={formValues.handleSubmit(onSubmit)}
 		>
 			<PageContent>
-				<CreateImageField isLoading={isLoading} formValues={formValues} />
-				<CreateFormDetails formValues={formValues} />
+				<CreateImageField />
+				<CreateFormsDetails isLoading={isLoading} />
 			</PageContent>
 		</PageForm>
 	);
-}
+};
 
-export default CreateForm;
+export default CreateForms;

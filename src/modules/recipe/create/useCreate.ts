@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {get} from 'lodash';
 import {mixed, number, object, string} from 'yup';
 
 import {RecipePayload} from '@/models/recipe';
@@ -21,18 +20,23 @@ function useCreate() {
 	const {alertBySuccess, alertByError} = useAlert();
 
 	const dispatch = useDispatch<AppDispatch>();
-	const recipeState = useSelector((state: RootState) => state.recipe);
-	const {isLoading, success, error} = get(recipeState, 'createRecipes');
+	const recipeState = useSelector(
+		(state: RootState) => state.recipe.createRecipes
+	);
+	const {isLoading, success, error} = recipeState;
 
 	async function onSubmit(data: RecipePayload) {
 		await dispatch(createRecipe(data));
 	}
 
 	const validationSchema = object({
-		name: string().min(10).max(50).required(FEEDBACK.REQUIRED),
+		name: string()
+			.required(FEEDBACK.REQUIRED)
+			.min(10, FEEDBACK.MIN)
+			.max(50, FEEDBACK.MAX),
 		email_address: string()
-			.email(FEEDBACK.REQUIRED)
-			.required(FEEDBACK.EMAIL)
+			.required(FEEDBACK.REQUIRED)
+			.email(FEEDBACK.EMAIL)
 			// https://github.com/jquense/yup/issues/2165
 			.matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
 		title: string().required(FEEDBACK.REQUIRED),
@@ -53,21 +57,10 @@ function useCreate() {
 	}, []);
 
 	useEffect(() => {
-		if (!!error) {
-			console.log(error);
+		if (!!error) return alertByError(error);
 
-			return alertByError(error);
-		}
 		if (!!success) {
-			formValues.resetField('name');
-			formValues.resetField('email_address');
-			formValues.resetField('title');
-			formValues.resetField('description');
-			formValues.resetField('ingredients');
-			formValues.resetField('instructions');
-			formValues.resetField('date_added');
-			formValues.resetField('id');
-			formValues.resetField('image');
+			formValues.reset();
 			return alertBySuccess('Successfully created a recipe');
 		}
 		// add reset of state here with router as dependency

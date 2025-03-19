@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {FieldValues, UseFormReturn} from 'react-hook-form';
+import {UseFormRegisterReturn} from 'react-hook-form';
 import ImageUploader, {ImageListType} from 'react-images-uploading';
 
 import {CloudUpload} from '@mui/icons-material';
 import {Box, IconButton, Stack, Typography} from '@mui/material';
 
 import {isEmpty, join, keys, map} from 'lodash';
-import {RecipePayload} from '@/models/recipe';
 import {ACCEPTED_IMAGE_FILES} from '@/constants/mimetypes';
 
-interface ImageUploadProps<T extends FieldValues> {
+interface ImageUploadProps {
 	resetValue?: boolean;
 	defaultValue: ImageListType;
-	formValues: UseFormReturn<T>;
+	register: UseFormRegisterReturn;
 	onChange: (image: File | undefined) => void;
 }
 
-const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
-	const {formValues, onChange, defaultValue, resetValue} = props;
+const ImageUpload: React.FC<ImageUploadProps> = (props) => {
+	const {onChange, defaultValue, resetValue, register} = props;
 
 	const [image, setImage] = useState<ImageListType>(defaultValue);
 
@@ -96,7 +95,7 @@ const ImageUpload: React.FC<ImageUploadProps<RecipePayload>> = (props) => {
 							})}
 						</Stack>
 
-						<input type='hidden' {...formValues.register('image')} />
+						<input type='hidden' {...register} />
 					</Box>
 				)}
 			</ImageUploader>

@@ -1,29 +1,21 @@
-import {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {useEffect, useState} from 'react';
+import {ImageListType} from 'react-images-uploading';
+import {useDispatch, useSelector} from 'react-redux';
 
+import cleanDeep from 'clean-deep';
 import {mixed, number, object, string} from 'yup';
+import {first, forEach, isEmpty, keys} from 'lodash';
 
-import {RecipePayload, RecipesItem} from '@/models/recipe';
+import {imagePathToFile} from '@/utils/images';
 import {FEEDBACK} from '@/constants/validation';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '@/redux/store';
-import {editRecipe} from '@/redux/actions/recipe/editRecipe';
 import {useAlert} from '@/modules/app/AlertProvider';
-import {first, isEmpty, map, slice} from 'lodash';
-import {ImageListType} from 'react-images-uploading';
+import {AppDispatch, RootState} from '@/redux/store';
+import {RecipePayload, RecipesItem} from '@/models/recipe';
+import {editRecipe} from '@/redux/actions/recipe/editRecipe';
 
 function useEdit(data: RecipesItem) {
-	const {
-		name,
-		title,
-		date_added,
-		description,
-		ingredients,
-		instructions,
-		email_address,
-		id,
-	} = data;
 	const [image, setImage] = useState<ImageListType>([]);
 	const {alertBySuccess, alertByError} = useAlert();
 
@@ -45,34 +37,6 @@ function useEdit(data: RecipesItem) {
 
 	function onSubmit(formData: RecipePayload) {
 		dispatch(editRecipe(formData));
-		// console.log(formData);
-	}
-
-	async function setDefaultImage(
-		imagePath: string,
-		folder: string = '/images/'
-	) {
-		const imgArr = map(imagePath);
-		const fileName = slice(imgArr, folder.length, imgArr.length)
-			.join('')
-			.toString();
-
-		const response = await fetch(imagePath);
-		const blob = await response.blob();
-		const file = new File([blob], fileName, {type: blob.type});
-
-		const reader = new FileReader();
-		return new Promise((resolve) => {
-			reader.onloadend = () => {
-				resolve([
-					{
-						file,
-						dataURL: reader.result as string, // Base64 URL
-					},
-				]);
-			};
-			reader.readAsDataURL(blob);
-		});
 	}
 
 	const formValues = useForm<RecipePayload>({
@@ -80,17 +44,22 @@ function useEdit(data: RecipesItem) {
 	});
 
 	useEffect(() => {
-		if (data) {
-			formValues.setValue('name', name);
-			formValues.setValue('email_address', email_address);
-			formValues.setValue('title', title);
-			formValues.setValue('description', description);
-			formValues.setValue('ingredients', ingredients);
-			formValues.setValue('instructions', instructions);
-			formValues.setValue('date_added', date_added);
-			formValues.setValue('id', id);
+		if (!isEmpty(cleanDeep(data))) {
+			forEach(keys(data), (key) => {
+				const dataKey = key as keyof RecipesItem;
+				const keyValue = data[dataKey];
+				formValues.setValue(dataKey, keyValue);
+			});
+			imagePathToFile(data.image).then((data) => {
+				const _data = data as ImageListType;
+				const image = first(_data);
+				if (image) {
+					setImage(data as ImageListType);
+					formValues.setValue('image', image.file);
+				}
+			});
 		}
-	}, [data, formValues.setValue]);
+	}, [data]);
 
 	useEffect(() => {
 		if (!!error) {
@@ -100,20 +69,6 @@ function useEdit(data: RecipesItem) {
 			return alertBySuccess('Successfully updated a recipe');
 		}
 	}, [error, success]);
-
-	useEffect(() => {
-		if (!isEmpty(data)) {
-			setDefaultImage(data.image).then((data) => {
-				const _data = data as ImageListType;
-				const image = first(_data);
-
-				if (image && image.file) {
-					setImage(data as ImageListType);
-					formValues.setValue('image', image.file);
-				}
-			});
-		}
-	}, [data]);
 
 	return {
 		formValues,

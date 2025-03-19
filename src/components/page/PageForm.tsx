@@ -1,5 +1,7 @@
 import React from 'react';
 import {Box, Button} from '@mui/material';
+import {RecipePayload} from '@/models/recipe';
+import {FormProvider, UseFormReturn} from 'react-hook-form';
 
 interface Props {
 	okButton?: boolean;
@@ -8,6 +10,7 @@ interface Props {
 	isSubmitting: boolean;
 	children: Children;
 	deleteAction?: () => void;
+	formValues: UseFormReturn<RecipePayload>;
 }
 
 function PageForm(props: Props) {
@@ -19,36 +22,39 @@ function PageForm(props: Props) {
 		isSubmitting = false,
 		deleteButton = false,
 		deleteAction,
+		formValues,
 	} = props;
 	return (
-		<Box noValidate component='form' onSubmit={onSubmit}>
-			{children}
+		<FormProvider {...formValues}>
+			<Box noValidate component='form' onSubmit={onSubmit}>
+				{children}
 
-			<Box sx={{display: 'flex', justifyContent: 'end', gap: 2, mt: 3}}>
-				{deleteButton && (
-					<Button
-						size='small'
-						type='button'
-						color='error'
-						variant='outlined'
-						onClick={deleteAction}
-						disabled={isSubmitting}
-					>
-						Delete
-					</Button>
-				)}
-				{okButton && (
-					<Button
-						size='small'
-						type='submit'
-						variant='contained'
-						disabled={isSubmitting}
-					>
-						Save Changes
-					</Button>
-				)}
+				<Box sx={{display: 'flex', justifyContent: 'end', gap: 2, mt: 3}}>
+					{deleteButton && (
+						<Button
+							size='small'
+							type='button'
+							color='error'
+							variant='outlined'
+							onClick={deleteAction}
+							disabled={isSubmitting}
+						>
+							Delete
+						</Button>
+					)}
+					{okButton && (
+						<Button
+							size='small'
+							type='submit'
+							variant='contained'
+							disabled={isSubmitting || formValues.formState.isSubmitting}
+						>
+							Save Changes
+						</Button>
+					)}
+				</Box>
 			</Box>
-		</Box>
+		</FormProvider>
 	);
 }
 
