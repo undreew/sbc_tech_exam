@@ -19,7 +19,7 @@ const CreateForms: React.FC<Props> = () => {
 		>
 			<PageContent>
 				<CreateImageField />
-				<CreateFormsDetails />
+				<CreateFormsDetails isLoading={isLoading} />
 			</PageContent>
 		</PageForm>
 	);

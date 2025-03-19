@@ -4,12 +4,16 @@ import CreateFormsUserInfo from './CreateFormsUserInfo';
 import CreateFormsRecipeDetails from './CreateFormsRecipeDetails';
 import CreateFormsRecipeContent from './CreateFormsRecipeContent';
 
-const CreateFormsDetails: React.FC = () => {
+interface Props {
+	isLoading: boolean;
+}
+
+const CreateFormsDetails: React.FC<Props> = (props) => {
 	return (
 		<PageCard>
-			<CreateFormsUserInfo />
-			<CreateFormsRecipeDetails />
-			<CreateFormsRecipeContent />
+			<CreateFormsUserInfo {...props} />
+			<CreateFormsRecipeDetails {...props} />
+			<CreateFormsRecipeContent {...props} />
 		</PageCard>
 	);
 };
