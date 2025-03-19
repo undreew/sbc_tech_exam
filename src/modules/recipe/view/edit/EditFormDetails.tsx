@@ -1,26 +1,23 @@
 import React from 'react';
-import {UseFormReturn} from 'react-hook-form';
 
 import {PageCard} from '@/components/page';
-import {RecipePayload} from '@/models/recipe';
 
-import EditFormUserInfo from './EditFormUserInfo';
-import EditFormRecipeDetails from './EditFormRecipeDetails';
-import EditFormRecipeContent from './EditFormRecipeContent';
+import CreateFormsUserInfo from '../../create/CreateFormsUserInfo';
+import CreateFormsRecipeDetails from '../../create/CreateFormsRecipeDetails';
+import CreateFormsRecipeContent from '../../create/CreateFormsRecipeContent';
 
 interface Props {
 	isLoading: boolean;
-	formValues: UseFormReturn<RecipePayload>;
 }
 
-function EditFormDetails(props: Props) {
+const EditFormDetails: React.FC<Props> = (props) => {
 	return (
 		<PageCard>
-			<EditFormUserInfo {...props} />
-			<EditFormRecipeDetails {...props} />
-			<EditFormRecipeContent {...props} />
+			<CreateFormsUserInfo {...props} />
+			<CreateFormsRecipeDetails isEdit {...props} />
+			<CreateFormsRecipeContent {...props} />
 		</PageCard>
 	);
-}
+};
 
 export default EditFormDetails;

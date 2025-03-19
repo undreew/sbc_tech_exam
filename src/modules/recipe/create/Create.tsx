@@ -1,7 +1,7 @@
 import React from 'react';
 import {PageContainer, PageTitle} from '@/components/page';
 
-import CreateForm from './CreateForm';
+import CreateForms from './CreateForms';
 import CreateBreadcrumbs from './CreateBreadcrumbs';
 
 function Create() {
@@ -9,7 +9,7 @@ function Create() {
 		<PageContainer>
 			<CreateBreadcrumbs />
 			<PageTitle title='Create a Recipe' />
-			<CreateForm />
+			<CreateForms />
 		</PageContainer>
 	);
 }

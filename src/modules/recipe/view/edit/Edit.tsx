@@ -1,18 +1,15 @@
 import React from 'react';
-import {PageContainer} from '@/components/page';
+import {PageContainer, PageTitle} from '@/components/page';
 
 import EditForm from './EditForm';
 import EditBreadcrumbs from './EditBreadcrumbs';
 
-import useGetEditItem from './useGetEditItem';
-
 function Edit() {
-	const getItemProps = useGetEditItem();
-
 	return (
 		<PageContainer>
 			<EditBreadcrumbs />
-			<EditForm {...getItemProps} />
+			<PageTitle title='Edit a Recipe' />
+			<EditForm />
 		</PageContainer>
 	);
 }
