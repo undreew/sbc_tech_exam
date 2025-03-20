@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import '../utils/axiosConfig';
 
 import Head from 'next/head';
 import type {AppProps} from 'next/app';

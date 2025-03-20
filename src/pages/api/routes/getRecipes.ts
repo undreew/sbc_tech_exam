@@ -17,5 +17,13 @@ export const getRecipes = async (req: NextApiRequest, res: NextApiResponse) => {
 			recipes = recipes.filter((i: RecipesItem) => i.favorites === isFavorite);
 		}
 		res.status(200).json(recipes);
-	} catch (error) {}
+	} catch (error) {
+		// throw error above to simulate
+		res.status(404).json({
+			errors: {
+				message: 'Failed fetching recipes.',
+				code: 'not_found',
+			},
+		});
+	}
 };

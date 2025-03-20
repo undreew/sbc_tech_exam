@@ -1,28 +1,28 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {useRouter} from 'next/router';
+
 import {AppDispatch, RootState} from '@/redux/store';
 import {getRecipe} from '@/redux/actions/recipe/getRecipe';
-import {useRouter} from 'next/router';
-import {has} from 'lodash';
 
 function useGetEditItem() {
+	const router = useRouter();
 	const dispatch = useDispatch<AppDispatch>();
 	const recipeState = useSelector((state: RootState) => state.recipe.getRecipe);
 	const {isLoading, data} = recipeState;
 
-	const {query} = useRouter();
-	const {id} = query;
+	const {id} = router.query;
 
 	async function getData() {
 		dispatch(getRecipe({id: id as string}));
 	}
 
 	useEffect(() => {
-		if (has(query, 'id')) {
+		if (router.isReady) {
 			getData();
 		}
-	}, [query]);
+	}, [router.query]);
 
 	return {
 		isLoading,
