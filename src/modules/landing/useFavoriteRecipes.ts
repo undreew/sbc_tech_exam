@@ -39,7 +39,7 @@ function useFavoriteRecipes(
 		if (!!error) {
 			return alertByError(error);
 		}
-	}, [success]);
+	}, [success, error]);
 
 	return {
 		isLoading,

@@ -14,6 +14,7 @@ import {useAlert} from '@/modules/app/AlertProvider';
 import {AppDispatch, RootState} from '@/redux/store';
 import {RecipePayload, RecipesItem} from '@/models/recipe';
 import {editRecipe} from '@/redux/actions/recipe/editRecipe';
+import {resetFavoriteRecipeState} from '@/redux/features/recipe';
 
 function useEdit(data: RecipesItem) {
 	const [image, setImage] = useState<ImageListType>([]);
@@ -60,6 +61,10 @@ function useEdit(data: RecipesItem) {
 			});
 		}
 	}, [data]);
+
+	useEffect(() => {
+		dispatch(resetFavoriteRecipeState());
+	}, []);
 
 	useEffect(() => {
 		if (!!error) {
