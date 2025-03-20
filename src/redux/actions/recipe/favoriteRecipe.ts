@@ -1,10 +1,11 @@
 import {fetcher} from '@/utils/fetcher';
+import {RecipesItem} from '@/models/recipe';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 export const favoriteRecipe = createAsyncThunk(
-	'',
-	(id: string): Promise<void> => {
-		return new Promise<void>(async (resolve, reject) => {
+	'recipes/favoriteRecipe',
+	(id: string): Promise<RecipesItem> => {
+		return new Promise<RecipesItem>(async (resolve, reject) => {
 			try {
 				// const {data} = await axios.put('/api/recipeFavorite', {id});
 				const {data} = await fetcher('PUT', '/api/recipeFavorite', {id});

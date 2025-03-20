@@ -57,6 +57,7 @@ interface IRecipe {
 	favoriteRecipe: {
 		isLoading: boolean;
 		success: boolean | null;
+		data: RecipesItem | object;
 		error: string | null | undefined;
 	};
 }
@@ -93,6 +94,7 @@ const initialState: IRecipe = {
 		isLoading: false,
 		success: null,
 		error: null,
+		data: {},
 	},
 };
 
@@ -129,6 +131,14 @@ const recipeSlice = createSlice({
 				isLoading: false,
 				success: null,
 				error: null,
+			};
+		},
+		resetFavoriteRecipeState: (state) => {
+			state.favoriteRecipe = {
+				isLoading: false,
+				success: null,
+				error: null,
+				data: {},
 			};
 		},
 	},
@@ -259,6 +269,8 @@ const recipeSlice = createSlice({
 				deleteRecipe.success = null;
 			})
 			// favorite recipe
+			// now stateful, just updates the item rather than refresh the whole list
+			// still disabled because it causes a bug for not applying filters
 			.addCase(favoriteRecipe.pending, (state, action) => {
 				const {favoriteRecipe} = state;
 
@@ -266,13 +278,21 @@ const recipeSlice = createSlice({
 				favoriteRecipe.success = null;
 				favoriteRecipe.error = null;
 			})
-			.addCase(favoriteRecipe.fulfilled, (state, action) => {
-				const {favoriteRecipe} = state;
+			.addCase(
+				favoriteRecipe.fulfilled,
+				(state, action: PayloadAction<RecipesItem>) => {
+					const {favoriteRecipe} = state; //data
 
-				favoriteRecipe.isLoading = false;
-				favoriteRecipe.success = true;
-				favoriteRecipe.error = null;
-			})
+					favoriteRecipe.data = action.payload;
+					favoriteRecipe.isLoading = false;
+					favoriteRecipe.success = true;
+					favoriteRecipe.error = null;
+
+					// state.data = data.map((item) =>
+					// 	item.id === action.payload.id ? action.payload : item
+					// );
+				}
+			)
 			.addCase(favoriteRecipe.rejected, (state, action) => {
 				const {favoriteRecipe} = state;
 
@@ -289,6 +309,7 @@ export const {
 	resetEditRecipeState,
 	resetDeleteRecipeState,
 	resetCreateRecipesState,
+	resetFavoriteRecipeState,
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

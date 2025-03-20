@@ -12,6 +12,7 @@ import {useAlert} from '@/modules/app/AlertProvider';
 import {
 	resetGetRecipesState,
 	resetCreateRecipesState,
+	resetFavoriteRecipeState,
 } from '@/redux/features/recipe';
 import {AppDispatch, RootState} from '@/redux/store';
 import {createRecipe} from '@/redux/actions/recipe/createRecipes';
@@ -54,6 +55,7 @@ function useCreate() {
 	useEffect(() => {
 		dispatch(resetGetRecipesState());
 		dispatch(resetCreateRecipesState());
+		dispatch(resetFavoriteRecipeState());
 	}, []);
 
 	useEffect(() => {

@@ -20,6 +20,6 @@ export const favoriteRecipes = async (
 
 		await fsPromises.writeFile(recipesPath, JSON.stringify(recipes));
 
-		res.status(200).json({data: true});
+		res.status(200).json(recipe);
 	} catch (error) {}
 };
