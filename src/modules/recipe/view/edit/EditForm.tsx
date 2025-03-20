@@ -28,7 +28,7 @@ function EditForm() {
 		>
 			<PageContent>
 				<EditImageField data={image} />
-				<EditFormDetails isLoading={isFetching} />
+				<EditFormDetails isLoading={isLoading} />
 			</PageContent>
 		</PageForm>
 	);

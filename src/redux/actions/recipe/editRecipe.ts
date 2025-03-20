@@ -1,27 +1,17 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {RecipePayload, RecipesItem} from '@/models/recipe';
 
+import {fetcher} from '@/utils/fetcher';
+import {formatFormData} from '@/utils/forms';
+
 export const editRecipe = createAsyncThunk(
 	'recipes/editRecipe',
 	(payload: RecipePayload): Promise<RecipesItem> => {
-		const formData = new FormData();
-
-		for (const key in payload) {
-			if (key === 'image' && payload.image instanceof File) {
-				formData.append(key, payload.image);
-			} else {
-				formData.append(key, String(payload[key as keyof RecipePayload]));
-			}
-		}
-
 		return new Promise<RecipesItem>(async (resolve, reject) => {
+			const _payload = formatFormData<RecipePayload>(payload);
 			try {
-				const res = await fetch('/api/recipeEdit', {
-					method: 'PUT',
-					body: formData,
-				});
-				const data = await res.json();
-				if (!res.ok) throw new Error(data.message);
+				// const {data} = await axios.put('/api/recipeEdit', _payload);
+				const {data} = await fetcher('PUT', '/api/recipeEdit', _payload);
 				resolve(data);
 			} catch (error) {
 				reject(error);

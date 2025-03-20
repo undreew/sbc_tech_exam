@@ -1,38 +1,24 @@
-import {orderBy} from 'lodash';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {Recipes, RecipesItem} from '@/models/recipe';
+import {Recipes} from '@/models/recipe';
 
-import qs from 'qs';
+import {fetcher} from '@/utils/fetcher';
 
 interface Query {
-	order?: string;
-	order_by?: string;
-	filter_by_favorites?: string;
+	order: string;
+	order_by: string;
+	filter_by_favorites: string;
 }
 
 export const getRecipes = createAsyncThunk(
 	'recipes/getRecipes',
-	async (queries: Query): Promise<Recipes> => {
-		const {order, order_by, filter_by_favorites} = queries;
-		// improve query handling, should happend in the api routes
-
+	async (queries?: Partial<Query>): Promise<Recipes> => {
 		return new Promise<Recipes>(async (resolve, reject) => {
 			try {
-				const queryString = qs.stringify(queries); // create as a util
-				const res = await fetch(`/api/recipes?${queryString}`, {
-					method: 'GET',
-				});
-
-				// improve error handling, should have dynamic error message from api routes
-				if (!res.ok) throw new Error('Error fetching recipes.');
-
-				let response = await res.json();
-
-				resolve(response);
+				// const {data} = await axios.get('/api/recipes', {params: queries});
+				const {data} = await fetcher('GET', '/api/recipes', queries);
+				resolve(data);
 			} catch (error) {
-				setTimeout(() => {
-					reject(error);
-				}, 1500);
+				reject(error);
 			}
 		});
 	}

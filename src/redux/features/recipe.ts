@@ -64,7 +64,7 @@ interface IRecipe {
 const initialState: IRecipe = {
 	data: [],
 	getRecipes: {
-		isLoading: false,
+		isLoading: true,
 		success: null,
 		error: null,
 	},

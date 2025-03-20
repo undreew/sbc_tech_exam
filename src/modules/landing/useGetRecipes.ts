@@ -35,12 +35,15 @@ function useGetRecipes() {
 	const {data} = recipeState;
 	const {isLoading, error} = get(recipeState, 'getRecipes');
 
-	async function getData() {
+	async function getData(queries?: AnyObject<string>) {
 		dispatch(getRecipes(queries));
 	}
 
 	useEffect(() => {
-		getData();
+		// temp solution for now, check if router isReady to prevent dual api calls
+		if (router.isReady) {
+			getData(queries);
+		}
 	}, [query]);
 
 	useEffect(() => {

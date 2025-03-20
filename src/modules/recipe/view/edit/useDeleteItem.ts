@@ -5,24 +5,29 @@ import deleteRecipe from '@/redux/actions/recipe/deleteRecipe';
 import {RecipesItem} from '@/models/recipe';
 import {useRouter} from 'next/router';
 import {ROUTES} from '@/constants/routes';
+import {useAlert} from '@/modules/app/AlertProvider';
 
 function useDeleteItem(data: RecipesItem) {
 	const router = useRouter();
+	const {alertByError} = useAlert();
 	const dispatch = useDispatch<AppDispatch>();
 	const recipeState = useSelector(
 		(state: RootState) => state.recipe.deleteRecipe
 	);
-	const {isLoading, success} = recipeState;
+	const {isLoading, success, error} = recipeState;
 
 	async function onDelete() {
-		dispatch(deleteRecipe(data.id));
+		dispatch(deleteRecipe(data?.id));
 	}
 
 	useEffect(() => {
 		if (!!success) {
 			router.push(ROUTES.LANDING.INDEX);
 		}
-	}, [success]);
+		if (!!error) {
+			alertByError(error);
+		}
+	}, [success, error]);
 
 	return {
 		isLoading,

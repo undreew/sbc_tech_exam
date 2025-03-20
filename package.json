@@ -18,6 +18,7 @@
     "@types/formidable": "^3.4.5",
     "@types/lodash": "^4.17.15",
     "@types/qs": "^6.9.18",
+    "axios": "^1.8.3",
     "clean-deep": "^3.4.0",
     "dayjs": "^1.11.11",
     "formidable": "^3.5.2",

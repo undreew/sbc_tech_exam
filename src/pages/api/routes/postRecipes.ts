@@ -47,14 +47,18 @@ export const postRecipes = async (
 				: files.image;
 
 			if (!uploadedFile) {
-				return res.status(500).json({message: 'No file uploaded!!'});
+				return res.status(500).json({
+					errors: {message: 'No file uploaded!!'},
+				});
 			}
 
 			const normalizedFields = normalizeFields(fields);
 			const {title} = normalizedFields;
 
 			if (filter(recipes, {title}).length > 0) {
-				return res.status(500).json({message: 'Title already exists!!'});
+				return res.status(500).json({
+					errors: {message: 'Title already exists!!'},
+				});
 			}
 
 			const safeTitle = title.replace(/[\/\\:*?"<>|]/g, '').trim();
@@ -74,6 +78,7 @@ export const postRecipes = async (
 			const payload = {
 				...recipePayload,
 				id: uuidv4(),
+				favorites: false,
 			};
 
 			recipes.push(payload);
@@ -85,6 +90,8 @@ export const postRecipes = async (
 
 		// res.status(200).json({data: 'WIP'});
 	} catch (error) {
-		console.log(error);
+		res.status(500).json({
+			errors: {message: 'Something went wrong.'},
+		});
 	}
 };

@@ -1,5 +1,5 @@
 import path from 'path';
-import {filter} from 'lodash';
+import {filter, isEqual} from 'lodash';
 import fsPromises from 'fs/promises';
 import {RecipesItem} from '@/models/recipe';
 import {NextApiRequest, NextApiResponse} from 'next';
@@ -12,11 +12,21 @@ export const deleteRecipes = async (
 	res: NextApiResponse
 ) => {
 	const {id} = req.body;
+	console.log(id);
 
 	try {
 		const recipes = await getRecipesController();
 
 		const filtered = filter(recipes, (i: RecipesItem) => i.id !== id);
+
+		if (isEqual(recipes, filtered)) {
+			return res.status(500).json({
+				errors: {
+					message: 'Failed deleting item.',
+				},
+			});
+		}
+
 		const updatedRecipes = JSON.stringify(filtered);
 
 		await fsPromises.writeFile(recipesPath, updatedRecipes);
